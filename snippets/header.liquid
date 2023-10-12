@@ -1,0 +1,16 @@
+<header class="header">
+    <img class="logo" alt="logo" src={{ 'logo-header.svg' | asset_url | append: 'header/'}}/>
+
+    <ul class="nav">
+        {% for link in linklists.header-menu.links -%}
+        <li>{{ link.title | link_to: link.url }}</li>
+        {%- endfor %}
+    </ul>
+
+    <div class="icons">
+        <div>En</div>
+        <img alt="search" src={{ 'header-search.svg' | asset_url+'/header' }}/>
+        {% assign headerImagePath = 'header/' | append: 'header-cart.svg' | asset_url %}
+        <img alt="cart" src="{{ headerImagePath }}" />
+            </div>
+</header>

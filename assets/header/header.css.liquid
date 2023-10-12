@@ -1,0 +1,64 @@
+.header {
+    width: 100vw;
+    position: fixed;
+    height: 100px;
+    padding: 0 25px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10.5vw;
+    background-color: transparent;
+
+    transition: all ease-in-out .5s;
+
+    z-index: 2;
+}
+
+.header > .logo {
+    height: 100px;
+}
+
+.header > ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5vw;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.header > .icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.header > .icons > div {
+    width: 45px;
+    height: 32px;
+    display: flex;
+    padding-left: 6px;
+    box-sizing: border-box;
+    align-items: center;
+    background-image: url('header/header-lang-down.svg');
+    background-position: 27px 55.5%;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    border: 2px solid {{ settings.yellow }};
+    color: {{ settings.yellow }};
+}
+
+.header > .icons > img {
+    cursor: pointer;
+}
+
+.header > ul > li > a {
+    color: {{ settings.yellow }};
+}
+
+.header:hover {
+    background-color: {{ settings.header-bg-hover }};
+}
+

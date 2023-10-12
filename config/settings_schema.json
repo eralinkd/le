@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Colors",
+        "settings": [
+            {
+                "type": "color",
+                "id": "yellow",
+                "label": "yellow",
+                "default": "#E7E09D"
+            },
+            {
+                "type": "color",
+                "id": "red",
+                "label": "red",
+                "default": "#8E2E18"
+            },
+            {
+                "type": "color",
+                "id": "header-bg-hover",
+                "label": "header-bg-hover",
+                "default": "rgba(142, 46, 24, 0.50)"
+            },
+            {
+                "type": "color",
+                "id": "banner-btn-active",
+                "label": "banner-btn-active",
+                "default": "rgba(142, 46, 24, 0.50);"
+            }
+        ]
+    }
+]
