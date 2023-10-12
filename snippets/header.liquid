@@ -1,5 +1,5 @@
 <header class="header">
-    <img class="logo" alt="logo" src={{ 'logo-header.svg' | asset_url | append: 'header/'}}/>
+    <img class="logo" alt="logo" src="{{ 'logo-header.svg' | asset_url }}"/>
 
     <ul class="nav">
         {% for link in linklists.header-menu.links -%}
@@ -9,8 +9,7 @@
 
     <div class="icons">
         <div>En</div>
-        <img alt="search" src={{ 'header-search.svg' | asset_url+'/header' }}/>
-        {% assign headerImagePath = 'header/' | append: 'header-cart.svg' | asset_url %}
-        <img alt="cart" src="{{ headerImagePath }}" />
-            </div>
+        <img alt="search" src="{{ 'header-search.svg' | asset_url }}"/>
+        <img alt="cart" src="{{ 'header-cart.svg' | asset_url }}"/>
+    </div>
 </header>
