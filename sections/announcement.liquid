@@ -1,0 +1,48 @@
+<div class="announcement">
+    <div class="content">
+        {% comment %} <p class="announcement-text">{{ 'announcement.text.text' | t }}</p>
+        <p class="announcement-time" id="countdown">0 days 0 h 0 m 0 s</p> {% endcomment %}
+    </div>
+
+    <script>
+        function changeAnnouncement(announcementIndex, announcement) {
+            const content = announcementBlock.querySelector('.content');
+            content.style.top = "-50px";
+
+            setTimeout(() => {
+                content.style.transition = "none";
+                content.style.top = "70px"
+            }, 300);
+
+            setTimeout(() => {
+                if (announcementIndex == 0) {
+                    content.innerHTML = `
+                        <p class="announcement-text">${announcement}</p>
+                        <p class="announcement-time" id="countdown">0 days 0 h 0 m 0 s</p>
+                    `;
+                }
+                else {
+                    content.innerHTML = `<p class="announcement-text">${announcement}</p>`
+                }
+            }, 300);
+            
+            setTimeout(() => {
+                content.style.transition = "top .3s ease-in-out";
+                content.style.top = "0";
+            }, 600);
+        }
+        
+        const announcementBlock = document.querySelector('.announcement');
+        const announcements = `{{settings.announcement}}`.split('\n');
+        let announcementIndex = 1;
+
+        changeAnnouncement(0, announcements[0]);
+        
+        if (announcements.length > 1) {
+            setInterval(() => {
+                changeAnnouncement(announcementIndex, announcements[announcementIndex]);
+                announcementIndex = (announcementIndex + 1) % announcements.length;
+            }, +{{settings.timer}}*1000);
+        }
+    </script>
+</div>

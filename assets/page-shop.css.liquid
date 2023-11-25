@@ -1,0 +1,609 @@
+.shop {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 148px 40px 64px 40px;
+}
+
+.shop .filters-box {
+    position: relative;
+    height: fit-content;
+    margin-top: 49px;
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    transition: all ease-in-out .3s;
+}
+
+.shop .filters-box h3 {
+    font-size: 22px;
+    font-weight: 200;
+    text-align: center;
+    overflow-x: clip;
+}
+
+.shop .filters-box .filters {
+    width: 100%;
+    margin-top: 22px;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    overflow-x: clip;
+}
+
+.shop .filters-box .filters>li {
+    position: relative;
+    padding: 15px 11px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 4px;
+    transition: all ease-in-out .3s;
+    cursor: pointer;
+    user-select: none;
+    color: {{ settings.light }};
+    background-color: {{ settings.main-header-type-2 }};
+}
+
+.shop .filters-box .filters>li:hover {
+    background-color: {{ settings.main }};
+}
+
+.shop .filters-box .filters>li.active {
+    background-color: {{ settings.main }};
+}
+
+.shop .filters-box .filters>li::after {
+    content: "+";
+    font-size: 32px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-57%);
+    right: 10px;
+}
+
+.shop .filters-box .filters>li.active::after {
+    content: "-";
+}
+
+.shop .filters-box .filters>ul {
+    max-height: 0;
+    margin-top: -10px;
+    overflow-y: clip;
+    transition: max-height ease-in-out .3s;
+}
+
+.shop .filters-box .filters>ul>label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 15px 11px 15px 41px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    cursor: pointer;
+    user-select: none;
+    color: {{ settings.light }};
+    background-color: {{ settings.main-header-type-2 }};
+}
+
+.shop .filters-box .filters>ul>label.price-content {
+    flex-direction: column;
+    padding: 0 0 21px 0;
+}
+
+
+.shop .filters-box .filters>ul>label:first-of-type {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+.shop .filters-box .filters>ul>label:last-of-type {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.shop .filters-box .filters>ul>label>input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.shop .filters-box .filters>ul>label>.checkmark {
+    position: absolute;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 14px;
+    height: 13px;
+    width: 13px;
+    /* background-color: #eee; */
+    border: 1px solid {{ settings.light }};
+}
+
+.shop .filters-box .filters>ul>label>input:checked ~ .checkmark {
+    background-color: {{ settings.light }};
+}
+
+.shop .filters-box .filters>ul>label input:checked ~ .checkmark {
+    background-image: url('https://cdn.shopify.com/s/files/1/0635/9783/8522/files/checkmark.svg?v=1699712040');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
+}
+
+.shop .filters-box p {
+    margin-top: 15px;
+    text-align: center;
+    overflow-x: clip;
+    transition: all ease-in-out .3s;
+}
+
+.shop .filters-box p span {
+    position: relative;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all ease-in-out .3s;
+    color: {{settings.accent}};
+}
+
+.shop .filters-box p:has(> span.hidden) {
+    opacity: 0;
+}
+
+.shop .filters-box p span::after {
+    content: "";
+    width: 100%;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    height: 1.5px;
+    opacity: 0;
+    transition: all ease-in-out .3s;
+    background-color: {{settings.accent}};
+}
+
+.shop .filters-box p span:hover::after {
+    opacity: 1;
+}
+
+.shop .filters-box .divider {
+    position: absolute;
+    content: "";
+    height: 103%;
+    right: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2px;
+    cursor: pointer;
+    opacity: 0;
+    transition: all ease-in-out .3s;
+    background-color: {{ settings.main }};
+}
+
+.shop .filters-box:hover .divider{
+    opacity: 1;
+}
+
+.shop .filters-box .divider::after {
+    position: absolute;
+    content: "";
+    width: 22px;
+    right: -10px;
+    top: 10%;
+    height: 22px;
+    border-radius: 50%;
+    transition: all ease-in-out .3s;
+    background-image: url('https://cdn.shopify.com/s/files/1/0668/3974/0631/files/filters-divider-arrow.svg?v=1699569011');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-color: {{settings.main}};
+}
+
+.shop .filters-box .divider.closed {
+    opacity: 1;
+    background-color: {{ settings.main-inactive-icons }};
+}
+
+.shop .filters-box .divider.closed::after {
+    transform: rotate(180deg);
+    background-color: {{ settings.main-inactive-icons }};
+}
+
+
+.shop .products {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 80px;
+}
+
+
+.shop .products h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.shop .products h1 span {
+    font-size: 32px;
+    font-weight: 600px;
+    transition: all ease-in-out .3s;
+    position: relative;
+    color: {{ settings.main }};
+}
+
+.shop .products h1 span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    bottom: -4px;
+    height: 3px;
+    background-color: {{ settings.main }};
+}
+
+.shop .products .all-products-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 35px;
+}
+
+.shop > #notification {
+    position: fixed;
+    width: 420px;
+    height: 100px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    right: -700px;
+    top: 101px;
+    transition: all ease-in-out .3s;
+    z-index: 10;
+    background-color: {{ settings.main-header-type-2 }};
+}
+
+.shop > #notification img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.shop > #notification > div {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.shop > #notification p {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ settings.light }};
+}
+
+.shop > #notification .name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.shop > #notification .price {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+
+
+
+.values {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.values div {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.shop .filters-box  .price .values p,
+.shop .filters-box  .price .values label {
+    font-family: "Manrope";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    color: {{ settings.light }};
+}
+
+.shop .filters-box  .price .values p {
+    font-size: 12px;
+    font-weight: 500;
+}
+  
+  .range-slider {
+    width: 80%;
+    position: relative;
+    margin-top: 10px;
+  }
+  
+  .range-fill {
+    height: 2px;
+    bottom: -4px;
+    /* background-color: {{ settings.main }}; */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none; /* Для Mozilla Firefox */
+    -ms-appearance: none; /* Для Microsoft Edge и Internet Explorer */
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    position: absolute;
+    left: 0;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none; /* Для Mozilla Firefox */
+    -ms-appearance: none; /* Для Microsoft Edge и Internet Explorer */
+    appearance: none;
+    height: 12px;
+    width: 12px;
+    top: -1px;
+    border-radius: 50%;
+    background: #D9D9D9;
+    cursor: pointer;
+    margin-top: -5px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 3px;
+    border: none;
+  }
+
+/* Стили для ползунков в Firefox */
+input[type="range"] {
+    /* overflow: hidden; */
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    -moz-appearance: none; /* Для Mozilla Firefox */
+    -ms-appearance: none; /* Для Microsoft Edge и Internet Explorer */
+    appearance: none;
+      height: 12px;
+      width: 12px;
+      border: none;
+      border-radius: 50%;
+      background: #D9D9D9;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+  }
+  
+  /* Убираем стандартные стили для ползунков в Firefox */
+  input[type="range"]::-moz-focus-inner {
+    -webkit-appearance: none;
+    -moz-appearance: none; /* Для Mozilla Firefox */
+    -ms-appearance: none; /* Для Microsoft Edge и Internet Explorer */
+    appearance: none;
+      border: 0;
+      padding: 0;
+  }
+  
+  /* Стили для трека ползунков в Firefox */
+  input[type="range"]::-moz-range-track {
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      border-radius: 3px;
+      border: none;
+  }
+  
+
+.shop .products {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 80px;
+}
+
+
+.shop .products h1 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.shop .products h1 span {
+    font-size: 32px;
+    font-weight: 600px;
+    transition: all ease-in-out .3s;
+    position: relative;
+    color: {{ settings.main }};
+}
+
+.shop .products h1 span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    bottom: -4px;
+    height: 3px;
+    background-color: {{ settings.main }};
+}
+
+.shop .products .all-products-container {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 35px;
+}
+
+.shop.padding {
+    padding: 0 40px 64px 40px;
+}
+
+.open-filters {
+    position: relative;
+    z-index: 3;
+    margin: auto;
+    width: 160px;
+    height: 46px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-family: Manrope;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    display: none;
+    color: {{ settings.light }};
+    background-color: {{ settings.main-header-type-2 }};
+}
+
+.open-filters:hover {
+    background-color: {{ settings.main }};
+    color: {{ settings.light }};
+}
+
+.open-filters:active {
+    color: {{ settings.light }};
+    background-color: {{ settings.dark }};
+}
+
+#filters-close {
+    display: none;
+}
+
+#shop-overlay {
+    display: none;
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .shop {
+        padding: 148px 0 0 0;
+    }
+
+    .shop.padding {
+        padding: 0;
+    }
+
+    .shop .filters-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin-top: 0;
+        width: 80%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: all ease-in-out .3s;
+        z-index: +5;
+        background-color: #fff;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .shop .filters-box.closed {
+        left: -100vw;
+    }
+
+    .shop .filters-box h3 {
+        font-size: 24px;
+        margin-bottom: 8px;
+        position: relative;
+    }
+
+    .shop .filters-box .divider {
+        display: none;
+    }
+
+    .shop .filters-box .filters>li {
+        margin: auto;
+        width: 85%;
+        font-size: 18px;
+        box-sizing: border-box;
+    }
+
+    .shop .filters-box .filters>ul {
+        width: 85%;
+        box-sizing: border-box;
+        margin: auto;
+        margin-top: -10px;
+    }
+
+    .shop .filters-box .filters>li:hover {
+        background-color: {{settings.main-header-type-2}};
+    }
+
+    .open-filters {
+        display: flex;
+        margin-bottom: 30px;
+    }
+
+    .shop .products {
+        padding: 0;
+    }
+
+    .shop .products .all-products-container {
+        grid-template-columns: repeat(2,1fr);
+        row-gap: 10px;
+    }
+
+    #filters-close {
+        display: block;
+        position: absolute;
+        font-family: Manrope;
+        left: -5px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 36px;
+        line-height: 36px;
+        cursor: pointer;
+        color: {{settings.main}};
+    }
+
+    #shop-overlay {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        z-index: +4;
+    }
+    
+    #shop-overlay.closed {
+        opacity: 0;
+        z-index: -1;
+    }
+}

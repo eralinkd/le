@@ -1,0 +1,215 @@
+footer {
+    position: relative;
+    padding: 0 8% 30px 8%;
+    margin-top: 60px;
+    display: grid;
+    grid-template-rows: 220px auto;
+    grid-gap: 56px;
+    background-color: {{ settings.footer }};
+    color: {{ settings.footer-text }};
+    z-index: 2;
+}
+
+footer > .content {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 5% 0 5%;
+}
+
+footer > .content > ul a,
+footer > .content > .info p {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    transition: .3s;
+    color: {{ settings.footer-text }};
+}
+
+footer > .content > ul a:hover {
+    color: {{ settings.light }};
+}
+
+footer > .content > .info a {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ settings.light }};
+}
+
+footer > .content > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+footer > .content > ul li {
+    color: {{ settings.footer-text }};
+}
+
+footer > .content > .info {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+footer > .content > .social {
+    display: grid;
+    grid-template-columns: repeat(2, 64px);
+    grid-template-rows: repeat(2, 64px);
+    gap: 7px;
+    /* align-self: center; */
+}
+
+footer > .content > .social > div {
+    width: 64px;
+    height: 64px;
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-1.svg?v=1698922049") center/cover no-repeat;
+    cursor: pointer;
+    transition: opacity 0.1s;
+    position: relative;
+} 
+
+footer > .content > .social >div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+footer > .content > .social > div:hover {
+    opacity: 1;
+}
+
+footer > .content > .social > div:nth-of-type(2) {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-2.svg?v=1698922049") center/cover no-repeat;
+}
+
+footer > .content > .social > div:nth-of-type(3) {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-3.svg?v=1698922049") center/cover no-repeat;
+}
+
+footer > .content > .social > div:nth-of-type(4) {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-4.svg?v=1698922049") center/cover no-repeat;
+}
+
+
+footer > .content > .social > div:nth-of-type(1):hover::before {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-1-rev.svg?v=1698922049") center/cover no-repeat;
+    opacity: 1;
+}
+
+footer > .content > .social > div:nth-of-type(2):hover::before {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-2-rev.svg?v=1698922049") center/cover no-repeat;
+    opacity: 1;
+}
+
+footer > .content > .social > div:nth-of-type(3):hover::before {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-3-rev.svg?v=1698922050") center/cover no-repeat;
+    opacity: 1;
+}
+
+footer > .content > .social > div:nth-of-type(4):hover::before {
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/footer-social-4-rev.svg?v=1698922050") center/cover no-repeat;
+    opacity: 1;
+}
+
+footer > .copyright {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer > .copyright * {
+    font-size: 18px;
+    color: {{ settings.light }};
+}
+
+footer > .copyright > div {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-family: "Manrope", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+footer > .copyright > div:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: end;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+footer > .copyright > div:nth-of-type(2) img {
+    cursor: pointer;
+    width: 32px;
+}
+
+footer > .copyright .logo {
+    height: 48px;
+    cursor: pointer;
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    footer {
+        padding: 0 8% 25px;
+        margin-top: 45px;
+        display: block;
+    }
+
+    footer>.content {
+        display: flex;
+        flex-direction: column;
+        justify-content: auto;
+        gap: 15px;
+        padding: 40px 0% 0;
+    }
+
+    footer>.content>.info {
+        display: none;
+    }
+
+    footer>.content>.social {
+        grid-template-columns: repeat(4,48px);
+        grid-template-rows: none;
+        gap: 7px;
+    }
+
+    footer>.content>.social>div {
+        width: 48px;
+        height: 48px;
+    }
+
+    footer>.copyright {
+        flex-direction: column;
+        justify-content: auto;
+    }
+
+    footer>.copyright>div {
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    footer>.copyright>div:nth-of-type(2) {
+        align-items: flex-start;
+    }
+
+    footer>.copyright>div:nth-of-type(2) img {
+        width: 28px;
+    }
+}

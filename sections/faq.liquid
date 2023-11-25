@@ -1,0 +1,44 @@
+<div class="faq-wrapper">
+    <h2>{{'faq.title' | t}}</h2>
+    <ul class="faq">
+
+    <li>{{'faq.subtitle1' | t}}</li>
+    <div class="answer">
+        {{'faq.answer1' | t}}
+    </div>
+
+    <li>{{'faq.subtitle2' | t}}</li>
+    <div class="answer">
+        {{'faq.answer2' | t}}    
+    </div>
+
+    <li>{{'faq.subtitle3' | t}}</li>
+    <div class="answer">
+        {{'faq.answer3' | t}}    
+    </div>
+    </ul>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq > li');
+        const answerDivs = document.querySelectorAll('.faq > .answer');
+
+        faqItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const answerDiv = answerDivs[index];
+                if (answerDiv.style.maxHeight === '0px' || !answerDiv.style.maxHeight) {
+                    answerDiv.style.padding = '10px 30px'
+                    answerDiv.style.maxHeight = '2000px';
+                    const scrollHeight = answerDiv.scrollHeight;
+                    answerDiv.style.maxHeight = scrollHeight + 20 + 'px';
+                    item.classList.add('active');
+                } else {
+                    answerDiv.style.maxHeight = '0px';
+                    answerDiv.style.padding = '0px 30px';
+                    item.classList.remove('active');
+                }
+            });
+        });
+
+        
+    </script>
+</div>

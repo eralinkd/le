@@ -1,15 +1,182 @@
 <header class="header">
-    <img class="logo" alt="logo" src="{{ 'logo-header.svg' | asset_url }}"/>
+    <div id="burger-open" class="burger-open"></div>
+
+    <a href="{{ routes.root_url }}">
+        <img class="logo" alt="logo" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/logo-header.svg?v=1698922898"/>
+    </a>
 
     <ul class="nav">
-        {% for link in linklists.header-menu.links -%}
-        <li>{{ link.title | link_to: link.url }}</li>
-        {%- endfor %}
+            <li>
+                <a href="{{linklists.header-menu.links[0].url}}">{{ 'header.menu.latest-drop' | t }}</a>
+            </li>
+            <li>
+                <a href="{{linklists.header-menu.links[1].url}}">{{ 'header.menu.shop' | t }}</a>
+            </li>
+            <li class="menu-container exclusive">
+                <a href="{{linklists.header-menu.links[2].url}}">{{ 'header.menu.exclusive' | t }}</a>
+                <div class="dropdown-wrapper">
+                    <ul class="dropdown exclusive">
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a href="{{linklists.header-menu.links[3].url}}">{{ 'header.menu.rework' | t }}</a>
+            </li>
+            <li class="menu-container more">
+                <a href="">{{ 'header.menu.more' | t }}</a>
+                <div class="dropdown-wrapper">
+                    <ul class="dropdown more">
+                        <li><a href="{{ linklists.header-menu.links[4].url }}">Salé</a></li>
+                        <li><a href="{{linklists.header-menu.links[5].url}}">Archivè</a></li>
+                        <li><a href="{{linklists.footer.links[0].url}}">About us</a></li>
+                    </ul>
+                </div>
+            </li>
     </ul>
 
     <div class="icons">
-        <div>En</div>
-        <img alt="search" src="{{ 'header-search.svg' | asset_url }}"/>
-        <img alt="cart" src="{{ 'header-cart.svg' | asset_url }}"/>
+        <localization-form>
+        {% form 'localization' %}
+            <div type="button" class="disclosure__button menu-container lang" aria-expanded="false" aria-controls="LanguageList">
+                {{ localization.language.iso_code | capitalize }}
+                <div class="dropdown-wrapper">
+                    <ul id="LanguageList" role="list" class="disclosure__list dropdown lang">
+                    {% for language in localization.available_languages %}
+                    <li class="disclosure__item" tabindex="-1">
+                        <a href="#"{% if language.iso_code == localization.language.iso_code %} aria-current="true"{% endif %} hreflang="{{ language.iso_code }}" lang="{{ language.iso_code }}" data-value="{{ language.iso_code }}">
+                        {{ language.endonym_name | capitalize }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
+            </div>
+        {% endform %}
+        </localization-form>
+
+        <form id="search-form-header" class="search-form closed" action="{{ routes.search_url }}">
+            <input type="text"
+                class="search-form-input"
+              placeholder=""
+              name="q"
+              value=""
+              autocomplete="off"
+            >
+            <input type="submit" value="">
+            <input type="hidden" name="type" value="product" />
+
+            <ul class="suggestions opened"></ul>
+        </form>
+
+        <div id="cart-mark" class="{% if cart.empty? %}empty{% else %}{% endif %} cart">
+        <img
+            alt="cart" id="cart-header" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/header-cart.svg?v=1698923054">
+        </div>
     </div>
+
+    <script>
+        const header = document.querySelector('.header');
+        const exclusiveCategories = [];
+        {% assign n = collections['exclusive'].products.size | minus: 1 %}
+
+        {% for i in (0..n) %}
+            exclusiveCategories[{{i}}] = '{{collections['exclusive'].products[i].metafields.custom.category.value}}';
+        {% endfor %}
+
+        function getUniqueValues(array) {
+            const uniqueSet = new Set(array.filter(value => value.trim() !== ''));
+            return Array.from(uniqueSet);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const uniqueValues = getUniqueValues(exclusiveCategories);
+            const exclusiveDropdown = header.querySelector('.dropdown.exclusive');
+
+            if (uniqueValues.length === 0) {
+                exclusiveDropdown.remove();
+            }
+
+            uniqueValues.forEach((category, index) => {
+                const li = document.createElement('li');
+                const url = '{{linklists.header-menu.links[2].url}}'
+                li.innerHTML = `<a href="${url}?category=${category}">${category}</a>`;
+                exclusiveDropdown.appendChild(li);
+            });
+        })
+    </script>
+
+    <script>
+        const searchForm = document.querySelector('#search-form-header');
+
+        searchForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (searchForm.classList.contains("closed")) {
+                searchForm.classList.remove("closed");
+                if (productSuggestions.length > 0) {
+                    displaySuggestions(productSuggestions);
+                }
+            } 
+            else {
+                if (validateForm()){
+                    event.target.submit();
+                }
+                else {
+                    searchForm.elements["q"].focus();
+                }
+            }
+
+        });
+
+        document.addEventListener("click", function(event) {
+            var isClickInside = searchForm.contains(event.target);
+        
+            if (!isClickInside && !searchForm.classList.contains("closed")) {
+                searchForm.classList.add("closed");
+                searchFormSuggestions.classList.remove("opened");
+            }
+        });
+        
+
+        function validateForm() {
+            return searchForm.elements["q"].value.length > 0;
+        }
+    </script>
+
+    <script>
+        let productSuggestions = [];
+        const searchFormInput = document.querySelector('#search-form-header .search-form-input');
+        const searchFormSuggestions = document.querySelector('#search-form-header .suggestions');
+
+        searchFormInput.addEventListener("input", async (event) => {
+            fetch(window.Shopify.routes.root + `search/suggest.json?q=${searchFormInput.value}&resources[type]=product&resources[options][unavailable_products]=hide&resources[options][fields]=title,product_type`)
+            .then((response) => response.json())
+            .then((suggestions) => {
+                console.log(suggestions);
+                productSuggestions = suggestions.resources.results.products.filter(product => {
+                    return parseFloat(product.price) > 0;
+                });
+                displaySuggestions(productSuggestions);
+            })
+            
+            .catch((error) => {
+                productSuggestions = [];
+                displaySuggestions(productSuggestions);
+            });
+        });
+
+        function displaySuggestions(products) {
+            searchFormSuggestions.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                const a = document.createElement('a');
+                a.href=products[i].url;
+                a.innerHTML = `<img src="${products[i].image}" alt="${products[i].title}">
+                <p>${products[i].title}</p>`
+                searchFormSuggestions.appendChild(a);
+            }
+            console.log("suggested")
+            searchFormSuggestions.classList.add("opened");
+        }
+    </script>
+
 </header>

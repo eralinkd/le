@@ -1,0 +1,119 @@
+function getProduct(products, index) {
+    return products[index];
+}
+
+function createCard(product) {
+    const isDiscount = parseFloat(product.oldPrice.replace("€", "").replace(",", ".")) > 0;
+
+    const container = document.createElement('div');
+    const productString = JSON.stringify(product).replace(/"/g, "&quot;");
+
+    container.innerHTML = `
+        <a href="${product.url}" class="card-wrapper">
+            <div class="card ${product.available === 'false' ? 'unavailable' : ''}">
+                <div class="reveal drop">
+                    <img class="front" src="${product.img}">
+                    <img class="hidden" src="${product.imgHover}" 
+                        onmouseenter="this.previousElementSibling.style.opacity = '0'; this.style.opacity = '1';"
+                        onmouseleave="this.previousElementSibling.style.opacity = '1'; this.style.opacity = '0';">
+                    <div class="under-product ${product.className} ${isDiscount && !product.exclusive && !product.rework ? 'discount' : ''}">
+                        <div class="line ${isDiscount && !product.exclusive && !product.rework ? 'discount' : 'common'}"></div>
+                        <form class="add-to-cart-form" onsubmit="event.preventDefault();">
+                            <input type="hidden" name="id" value="${product.id}">
+                            <input type="hidden" name="quantity" value="1">
+                            <div class="cart" onclick="addToCart(this); displayNotification(${productString});"></div>
+
+                        </form>
+                        <div class="line ${isDiscount && !product.exclusive && !product.rework ? 'discount' : 'common'}"></div>
+
+                        <div class="ticket">
+                            <div class="exclusive-ico"></div>
+                            <div class="exclusive-ico"></div>  
+                        </div>
+
+                        <div class="exclusive-ico first"></div>
+                        <div class="exclusive-ico"></div>
+                        <div class="rework-ico first"></div>
+                            <div class="rework-ico"></div>
+                    </div>
+                </div>
+                <p class="name">${product.title}</p>
+                <p class="price ${isDiscount ? 'discount' : ''}">${product.available === 'false' ? 'SOLD OUT' : product.price}</p>
+                <p class="price-old">${product.oldPrice}</p>
+            </div>
+        </a>
+    `;
+
+    return container.firstElementChild;
+}
+
+function appendCard(parent, index, products) {
+    parent.appendChild(createCard(getProduct(products, index)));
+}
+
+async function addToCart(element) {
+    event.preventDefault();
+    const form = element.closest('form');
+
+    try {
+        const response = await fetch('/cart/add', {
+            method: 'post',
+            body: new FormData(form)
+        });
+        if (response) {
+            updateCart();
+        }
+        
+    } catch (error) {
+
+    }
+}
+
+class LocalizationForm extends HTMLElement {
+    constructor() {
+      super();
+      this.elements = {
+        input: this.querySelector('input[name="language_code"], input[name="country_code"]'),
+        button: this.querySelector('div.disclosure__button'),
+        panel: this.querySelector('ul'),
+      };
+      this.elements.button.addEventListener('click', this.openSelector.bind(this));
+      this.elements.button.addEventListener('focusout', this.closeSelector.bind(this));
+      this.addEventListener('keyup', this.onContainerKeyUp.bind(this));
+  
+      this.querySelectorAll('a').forEach(item => item.addEventListener('click', this.onItemClick.bind(this)));
+    }
+  
+    hidePanel() {
+      this.elements.button.setAttribute('aria-expanded', 'false');
+    }
+  
+    onContainerKeyUp(event) {
+      if (event.code.toUpperCase() !== 'ESCAPE') return;
+  
+      this.hidePanel();
+      this.elements.button.focus();
+    }
+  
+    onItemClick(event) {
+      event.preventDefault();
+      const form = this.querySelector('form');
+      this.elements.input.value = event.currentTarget.dataset.value;
+      if (form) form.submit();
+    }
+  
+    openSelector() {
+      this.elements.button.focus();
+      this.elements.panel.toggleAttribute('hidden');
+      this.elements.button.setAttribute('aria-expanded', (this.elements.button.getAttribute('aria-expanded') === 'false').toString());
+    }
+  
+    closeSelector(event) {
+      const shouldClose = event.relatedTarget && event.relatedTarget.nodeName === 'BUTTON';
+      if (event.relatedTarget === null || shouldClose) {
+        this.hidePanel();
+      }
+    }
+  }
+  
+  customElements.define('localization-form', LocalizationForm);

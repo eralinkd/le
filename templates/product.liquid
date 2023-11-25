@@ -1,0 +1,609 @@
+<div class="page-product-wrapper">
+    <div class="page-product">
+        <div class="gallery">
+
+            {% for image in product.images %}
+                <div class="slide fade" onmousemove="handleMouseOver(event, 'zoomedImage{{ forloop.index }}')" onmouseout="handleMouseOut('zoomedImage{{ forloop.index }}')">
+                    <img src='{{ image | image_url }}' alt='{{ product.title }}' data-zoom="zoomedImage{{ forloop.index }}">
+                    <div class="zoomedImage zoomedImage{{ forloop.index }}"></div>
+                </div>
+            {% endfor %}
+        
+            <div id="navigation">
+                <span id="prev" onclick="plusSlides(-1)">&#10094;</span>
+                {% for image in product.images %}
+                    <div class="dot" onclick="currentSlide({{ forloop.index }})"></div>
+                {% endfor %}
+                <span id="next" onclick="plusSlides(1)">&#10095;</span>
+            </div>
+        </div>
+
+        <div class="info">
+            {% if product.metafields.custom.rework.value == true %}
+                <div class="ico-details rework">
+                    <img class="product-rework-ico" src="https://cdn.shopify.com/s/files/1/0635/9783/8522/files/icon-rework.svg?v=1699716240">
+                </div>
+            {% elsif product.metafields.custom.exclusive.value == true %}
+                <div class="ico-details">
+                    <img class="product-exclusive-ico" src="https://cdn.shopify.com/s/files/1/0635/9783/8522/files/rare_icon_29af6890-0ba2-4ee5-a7f2-7d72009b1c6f.svg?v=1700095757">
+                </div>
+            {% else %}
+                <div></div>
+            {% endif %}
+            <h1 class="name">{{ product.title }}</h1>
+
+
+            {% if product.compare_at_price %}
+                <h2 class="price discount">{{ product.price | money }}</h2>
+            {% else %}
+                {% if product.available %}
+                    <h2 class="price">{{ product.price | money }}</h2>
+                {% else %}
+                    <h2 class="price sold-out">{{ product.price | money }}</h2>
+                {% endif %}
+            {% endif %}
+           
+            {% if product.compare_at_price %}
+                <p class="old-price">{{ product.compare_at_price | money }}</p>
+            {% endif %}
+
+            {% if product.available %}
+                <p class="taxes">incl. taxes, excl. <a href="#" id="shipping-button">Shipping costs</a></p>
+            {% endif %}
+
+            <div class="characteristics">
+                <div class="characteristic">
+                    <div class="text color"><span class="color">{{ product.metafields.custom.color.value }}</span></div>
+                    <p>Color</p>
+                </div>
+
+                <div class="characteristic">
+                    <div class="text condition">
+                        <span>{{ product.metafields.custom.condition.value }}/10</span>
+                        <svg id="conditionSvg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%">
+                            <circle class="border" cx="50%" cy="50%" r="50%" />
+                            <circle class="sector" cx="50%" cy="50%" r="49%"/>
+                        </svg>
+                    </div>
+                    <p>Condition</p>
+                </div>
+
+                <div class="characteristic">
+                    <div class="text size">
+                        <span>{{ product.metafields.custom.size.value }}</span>
+                        <div class="progress-bar"></div>
+                    </div>
+                    <p>Size</p>
+                </div>
+
+            </div>
+
+            {% if product.available %}
+                <form id="buy-form">
+                    <input type="hidden" name="id" value="{{ product.variants[0].id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <a href="#" id="add-to-cart" class="add-to-cart">Add to cart</a>
+                </form>
+            {% endif %}
+
+            {% if product.available == false %}
+
+                <p class="sold_out">Sold out</p>
+                <a href="{{linklists.header-menu.links[1].url}}" class="add-to-cart">Go Shopping</a>
+            {% endif %}
+
+            <div class="payment-methods">
+                {% for product in collections['payment-methods'].products %}
+                    <img src="{{ product.featured_image | image_url }}" alt="{{ product.title }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="page-product-description">
+        <div class="faq-block">
+            <h2>{{'faq-product.title' | t}}</h2>
+            <ul class="faq">
+
+            <li>{{'faq-product.subtitle1' | t}}</li>
+            <div class="answer">
+                {{'faq-product.answer1' | t}}
+            </div>
+
+            <li>{{'faq-product.subtitle2' | t}}</li>
+            <div class="answer">
+                {{'faq-product.answer2' | t}}
+            </div>
+
+            <li>{{'faq-product.subtitle3' | t}}</li>
+            <div class="answer">
+                {{'faq-product.answer3' | t}}
+            </div>
+
+            <li>{{'faq-product.subtitle4' | t}}</li>
+            <div class="answer">
+                {{'faq-product.answer4' | t}}
+            </div>
+
+            <li>{{'faq-product.subtitle5' | t}}</li>
+            <div class="answer">
+                {{'faq-product.answer5' | t}}
+            </div>
+
+            <li>{{'faq-product.subtitle6' | t}}</li>
+            <div class="answer">
+                {{'faq-product.answer6' | t}}
+            </div>
+            </ul>
+        </div>
+
+        <div class="details">
+            <div class="table">
+                {% if product.metafields.custom.details %}
+                    <div>Dètails</div> <div>{{ product.metafields.custom.details.value }}</div>
+                {% endif %}
+
+                {% if product.metafields.custom.fit %}
+                    <div>Fit</div> <div>{{ product.metafields.custom.fit.value }}</div>
+                {% endif %}
+                
+                {% if product.metafields.custom.made_in %}
+                    <div>Madé in</div> <div>{{ product.metafields.custom.made_in.value }}</div>
+                {% endif %}
+                
+                {% if product.metafields.custom.measurements %}
+                    <div>Mèasuréménts</div> <div id="measurements-button">{{ product.metafields.custom.measurements.value }}</div>
+                {% endif %}
+                
+                {% if product.metafields.custom.material %}
+                    <div>Matérial</div> <div>{{ product.metafields.custom.material.value }}</div>
+                {% endif %}
+
+                {% if product.metafields.custom.year %}
+                    <div>Yèar</div> <div>{{ product.metafields.custom.year.value }}</div>
+                {% endif %}
+
+                {% if product.metafields.custom.category %}
+                    <div>Rèlativé évènt</div> <div>{{ product.metafields.custom.category.value }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="latest-drop without-margin" id="suggestions">
+        <h2>OTHER ITEMS IN YOUR SIZE</h2>
+        <div class="cards">
+            <div class="drop products-container">
+            </div>
+
+            <p>
+                <a href="#">VIÉW ALL</a>
+                <img src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left.svg?v=1698924671" id="product-page-scroll-left">
+                <img class="right" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-right.svg?v=1698924671" id="product-page-scroll-right">
+            </p>
+        </div>
+    </div>
+
+    <div class="overlay" id="shipping-overlay"></div>
+
+    <div class="shipping-pop-up">
+        <h2>SHIPPING POLICY</h2>
+        <p>We ship worldwide from Germany. All orders until 1PM are shipped same day. Once your order is shipped, you'll receive a Tracking Link via E-Mail. Please also check your Spam-Folder! Our Tape, Mailers and Shipping Boxes are all made from paper and 100% plastic-free.</p>
+        
+        <br>
+        <h3>Germany (1-3 working days)</h3>
+        <p>Warenpost: 3,90€(only available for small items, limited Tracking)</p>
+        <p>Tracked Shipping: 5,90€</p>
+        <p>Free Shipping on 80€+ orders</p>
+
+        <br>
+        <h3>Europe Zone 1 (4-7 working days)</h3>
+        <p>Tracked Shipping: 10,90€</p>
+        <p>Free Shipping on 120€+ orders</p>
+
+        <br>
+        <h3>UK, Norway, Switzerland, Iceland, Malta, Lichtenstein</h3>
+        <p>Tracked Shipping: 13,90€</p>
+        <p>Free Shipping on 120€+ orders</p>
+
+        <br>
+        <h3>Rest of the World (7-14 Working Days)</h3>
+        <p>Tracked Shipping: 39,90€</p>
+        <p>Free Shipping on 200€+ orders</p>
+
+        <br>
+        <p>Additional Charges for Non-EU countries such as Custom Fees or Import Charges are not shown at Checkout or handled by Lumiere Epoque and therefore fall under the Customer's obligation.</p>
+
+        <span class="close">×</span>
+    </div>
+
+    <div class="overlay" id="measurements-overlay"></div>
+
+    <div class="measurements-pop-up">
+        <h2>Measurements</h2>
+        <br><br>
+
+        <div>
+            <img src="https://cdn.shopify.com/s/files/1/0635/9783/8522/files/measurements-1.svg?v=1700771273">
+            <img src="https://cdn.shopify.com/s/files/1/0635/9783/8522/files/measurements-2.svg?v=1700771428">
+        </div>
+        
+        <br><br>
+        <p>Discovering the perfect fit is easy with Lumière Époque! To ensure you get the right size, grab a well-fitting item from your closet and compare its measurements to ours. This simple method takes the guesswork out of sizing, ensuring your chosen pieces match your style seamlessly.</p>
+        <span class="close">×</span>
+    </div>
+    
+    <script>
+        const suggestions = document.getElementById('suggestions');
+        const drop = suggestions.querySelector('.drop');
+        const scrollRightButton = suggestions.querySelector('#product-page-scroll-right');
+        const scrollLeftButton = suggestions.querySelector('#product-page-scroll-left');
+        let products = [];
+        let newProduct = [];
+        let n = {{collections['shop'].products.size}};
+        let soldOuts = 0;
+        {% assign n = collections['shop'].products.size | minus: 1 %}
+        {% for i in (0..n) %}
+            if ('{{collections['shop'].products[i].metafields.custom.size.value}}' == '{{product.metafields.custom.size.value}}' && '{{product.variants[0].id}}' != '{{collections['shop'].products[i].variants[0].id}}') {
+                newProduct = {
+                    img: '{{collections['shop'].products[i].featured_image | image_url}}',
+                    imgHover: '{{collections['shop'].products[i].images[1] | image_url}}',
+                    title: '{{collections['shop'].products[i].title}}',
+                    price: '{{collections['shop'].products[i].price | money}}',
+                    oldPrice: '{{collections['shop'].products[i].compare_at_price | money}}',
+                    id: '{{collections['shop'].products[i].variants[0].id}}',
+                    url: '{{collections['shop'].products[i].url}}',
+                    available:'{{collections['shop'].products[i].available}}',
+                    rework: '{{collections['shop'].products[i].metafields.custom.rework.value}}',
+                    exclusive: '{{collections['shop'].products[i].metafields.custom.exclusive.value}}',
+                    index: +'{{i}}'-soldOuts,
+                    {% if collections['shop'].products[i].metafields.custom.rework.value == true %}
+                        className: 'rework',
+                    {% elsif collections['shop'].products[i].metafields.custom.exclusive.value == true %}
+                        className: 'exclusive',
+                    {% else %}
+                        className: 'common',
+                    {% endif %}
+                };
+                products.push(newProduct);
+            }
+            else {
+                soldOuts += 1
+            }
+        {% endfor %}
+        n -= soldOuts
+
+        if (n == 0) {
+            suggestions.style.display = 'none';
+        }
+
+        let index = 0;
+
+        function scrollFunction(drop) {
+            const scrollLeft = drop.scrollLeft + drop.offsetLeft;
+            const dropWidth = drop.children[0].offsetWidth * (drop.children.length - 2);
+            
+            const targetScroll = dropWidth - drop.children[0].offsetWidth * 4;
+            const cardsToAdd = Math.floor(scrollLeft / targetScroll);
+            
+            for (let i = 0; i < cardsToAdd; i++) {
+                appendCard(drop, index, products);
+                index = (index + 1) % n;  
+            }
+
+            toggleScrollLeftButton();
+        }
+
+        function toggleScrollLeftButton() {
+            if (drop.scrollLeft > 0) {
+                scrollLeftButton.src = 'https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left-active.svg?v=1698924671';
+            }
+            else {
+                scrollLeftButton.src = 'https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left.svg?v=1698924671';
+            }
+        }
+
+        function truncateString(inputString) {
+            if (inputString && inputString.length > 2) {
+              return inputString.slice(0, 2).toUpperCase();
+            } else {
+              return inputString;
+            }
+        }
+
+        function formatColorBlock() {
+            const productColor = '{{product.metafields.custom.color_value}}'
+            const isBlackColor = '{{product.metafields.custom.black_text_color}}'
+            const colorDiv = document.querySelector('.characteristic .text.color');
+            const colorSpan = document.querySelector('.characteristic .text span.color');
+
+            colorSpan.textContent = truncateString(colorSpan.textContent);
+            if (productColor) {
+                colorDiv.style.backgroundColor = productColor;
+
+                if (isBlackColor == 'true') {
+                    colorDiv.style.boxShadow = 'inset 0 0 0 3px rgb(6, 11, 38)';
+
+                    colorSpan.style.color = 'rgb(6, 11, 38)';
+                }
+            }
+
+            if ('{{product.metafields.custom.color}}' == 'Multicolor') {
+                colorDiv.style.backgroundColor = 'black';
+                colorDiv.style.backgroundImage = 'url(https://cdn.shopify.com/s/files/1/0635/9783/8522/files/multicolor.png?v=1700683293)';
+                colorDiv.style.boxShadow = 'inset 0 0 0 3px rgb(6, 11, 38)';
+                colorDiv.style.backgroundSize = 'cover';
+                colorDiv.style.backgroundPosition = 'center';
+                colorDiv.style.opacity = '0.8';
+                colorSpan.textContent = "";
+            }
+        }
+        
+        function formatConditionSvg() {
+            const conditionSvg = document.querySelector('#conditionSvg');
+            const sector = conditionSvg.querySelector('.sector');
+
+            conditionSvg.style.height = conditionSvg.getBoundingClientRect().width + 'px';
+            conditionSvg.style.transform = 'rotate(-90deg)';
+
+            sector.setAttribute('r', 'calc(50% - 2.2px)');
+            const strokeLength = sector.getBoundingClientRect().width * Math.PI;
+            sector.style.strokeDashoffset = strokeLength;
+            sector.style.strokeDasharray = strokeLength;
+            const perc = +'{{ product.metafields.custom.condition.value }}';
+            var style = document.createElement('style');
+            style.textContent = `
+                @keyframes customAnim {
+                    100% {
+                        stroke-dashoffset: ${strokeLength - strokeLength * perc / 10};
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function formatSizeBlock() {
+            const productSize = '{{product.metafields.custom.size}}'
+
+            const percentages = {
+                "XS": Math.floor(100 / 7),
+                'S': Math.floor(200 / 7),
+                'M': Math.floor(300 / 7),
+                'L': Math.floor(400 / 7),
+                'XL': Math.floor(500 / 7),
+                'XXL': Math.floor(600 / 7),
+                'XXXL': Math.floor(700 / 7)
+            };
+
+            const percent = percentages[productSize];
+
+            var style = document.createElement('style');
+            style.textContent = `
+                @keyframes sizeAnim {
+                    0% {
+                        clip-path: inset(0 0 100% 0);
+                    }
+                    100% {
+                        clip-path: inset(0 0 ${100-percent}% 0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function faqLogic() {
+            const faqItems = document.querySelectorAll('.page-product-description .faq > li');
+            const answerDivs = document.querySelectorAll('.page-product-description .faq > .answer');
+        
+            faqItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    answerDivs.forEach((div, i) => {
+                        if (i !== index) {
+                            div.style.maxHeight = '0px';
+                            div.style.padding = '0px 30px';
+                            faqItems[i].classList.remove('active');
+                        }
+                    });
+        
+                    const answerDiv = answerDivs[index];
+                    if (answerDiv.style.maxHeight === '0px' || !answerDiv.style.maxHeight) {
+                        answerDiv.style.padding = '10px 30px';
+                        answerDiv.style.maxHeight = '2000px';
+                        const scrollHeight = answerDiv.scrollHeight;
+                        answerDiv.style.maxHeight = scrollHeight + 20 + 'px';
+                        item.classList.add('active');
+                    } else {
+                        answerDiv.style.maxHeight = '0px';
+                        answerDiv.style.padding = '0px 30px';
+                        item.classList.remove('active');
+                    }
+                });
+            });
+        }
+        
+
+        document.addEventListener('DOMContentLoaded', function() {
+            formatColorBlock();
+            formatConditionSvg();
+            formatSizeBlock();
+            faqLogic();
+
+            const cardsScrollOreloadCounter = 5;
+            for (let j = 0; j < cardsScrollOreloadCounter; j++) {
+                for (let i = 0; i < n; i++) {
+                    appendCard(drop, i, products);
+                }
+            }
+
+            const dropWidth = drop.offsetWidth;
+
+            drop.addEventListener('scroll', () => scrollFunction(drop));
+            
+            scrollRightButton.addEventListener('click', () => {
+                toggleScrollLeftButton();
+                for (let i = 0; i < n; i++) {
+                    appendCard(drop, i, products);
+                }
+                drop.scrollBy({left:dropWidth, top:0, behavior:"smooth"});
+            });  
+
+            scrollLeftButton.addEventListener('click', () => {
+                toggleScrollLeftButton();
+                drop.scrollBy({left:-dropWidth, top:0, behavior:"smooth"});
+            })
+        });
+    </script>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+    
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+    
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+    
+        function showSlides(n) {
+            let i;
+            const slides = document.getElementsByClassName("slide");
+            const dots = document.getElementsByClassName("dot");
+    
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+    
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+    
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+    
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+    
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+    <script>
+        function handleMouseOver(event, className) {
+            const zoomedImage = document.querySelector(`.${className}`);
+            const { left, top, width, height } = event.currentTarget.getBoundingClientRect();
+            const x = ((event.pageX - left) / width) * 100;
+            const y = ((event.pageY - top - window.scrollY) / height) * 100;
+            zoomedImage.style.backgroundImage = `url(${event.currentTarget.querySelector('img').src})`;
+            zoomedImage.style.backgroundColor = '#fff';
+            zoomedImage.style.backgroundPosition = `${x}% ${y}%`;
+        }
+        
+        function handleMouseOut(className) {
+            const zoomedImage = document.querySelector(`.${className}`);
+            zoomedImage.style.backgroundImage = 'none';
+            zoomedImage.style.backgroundColor = 'transparent';
+        }
+    </script>
+
+    <script>
+        const form = document.querySelector('#buy-form');
+        const buyButton = document.querySelector('#add-to-cart');
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            buyButton.classList.add('loading');
+        });
+
+        buyButton.addEventListener("click", async function() {
+            event.preventDefault();
+            buyButton.classList.add('loading');
+        
+            if (!buyButton.classList.contains('added')) {
+                await fetch('/cart/add', {
+                    method: 'post',
+                    body: new FormData(form)
+                });
+                await updateCart();
+            }
+            
+            overlay.style.opacity = 1
+            overlay.style.zIndex = 5
+            cartSidebar.style.right = "0"
+
+            buyButton.classList.remove('loading');
+            buyButton.textContent = 'Added to cart';
+            buyButton.classList.add('added');
+        });
+    </script>
+
+    <script>
+        const overlayShipping = document.querySelector('#shipping-overlay');
+        const shippingButton = document.querySelector('#shipping-button');
+        const shippingPopupOpen = document.querySelector('.shipping-popup-open');
+        const shippingPopup = document.querySelector('.shipping-pop-up');
+        const shippingClose = shippingPopup.querySelector('.close');
+
+        const overlayMeasurements = document.querySelector('#measurements-overlay');
+        const measurementsButton = document.querySelector('#measurements-button');
+        const measurementsPopup = document.querySelector('.measurements-pop-up');
+        const measurementsClose = measurementsPopup.querySelector('.close');
+
+
+
+        if (shippingPopupOpen) {
+            shippingPopupOpen.addEventListener('click', function(event) {
+                event.preventDefault();
+                overlay.style.opacity = 0
+                overlay.style.zIndex = -1
+                cartSidebar.style.right = "-35vw"
+    
+                overlayShipping.style.opacity = 1
+                overlayShipping.style.zIndex = '3'
+                shippingPopup.style.transform = 'translate(-50%, -50%)'
+            });
+        }
+        
+        shippingButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            overlayShipping.style.opacity = 1
+            overlayShipping.style.zIndex = '3'
+            shippingPopup.style.transform = 'translate(-50%, -50%)'
+        });
+
+        overlayShipping.onclick = function() {
+            shippingPopup.style.transform = 'translate(150%, -50%)'
+            overlayShipping.style.opacity = 0
+            overlayShipping.style.zIndex = '-1'
+        }
+
+        shippingClose.onclick = function() {
+            shippingPopup.style.transform = 'translate(150%, -50%)'
+            overlayShipping.style.opacity = 0
+            overlayShipping.style.zIndex = '-1'
+        }
+
+        measurementsButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            overlayMeasurements.style.opacity = 1
+            overlayMeasurements.style.zIndex = '3'
+            measurementsPopup.style.transform = 'translate(-50%, -50%)'
+        });
+
+        overlayMeasurements.onclick = function() {
+            measurementsPopup.style.transform = 'translate(150%, -50%)'
+            overlayMeasurements.style.opacity = 0
+            overlayMeasurements.style.zIndex = '-1'
+        }
+
+        measurementsClose.onclick = function() {
+            measurementsPopup.style.transform = 'translate(150%, -50%)'
+            overlayMeasurements.style.opacity = 0
+            overlayMeasurements.style.zIndex = '-1'
+        }
+    </script>
+</div>

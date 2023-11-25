@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: red;
+      /* overflow: hidden; */
+    }
+
+    .circle {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translate(-50%, 50%) rotate(180deg);
+      width: calc(100% - 40px);
+      height: calc(100% - 40px);
+      border-radius: 50%;
+      border: 20px solid rgba(194, 3, 3, 0.5);
+      clip-path: inset(0 0 100% 0);
+      animation: fillAnimation 1s ease-in-out forwards;
+    }
+
+    @keyframes fillAnimation {
+      0% {
+        clip-path: inset(0 0 100% 0);
+      }
+      100% {
+        clip-path: inset(0 0 10% 0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="circle"></div>
+  </div>
+</body>
+</html>

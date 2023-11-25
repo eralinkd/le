@@ -1,0 +1,105 @@
+#about-banner {
+    height: 51vw;
+}
+
+.about-page h2 {
+    text-align: center;
+}
+
+.about-page h2.bottom {
+    margin-top: 80px;
+}
+
+.about-page h2 span {
+    font-size: 32px;
+    font-weight: 600px;
+    transition: all ease-in-out .3s;
+    position: relative;
+    color: {{ settings.main }};
+}
+
+.about-page h2 span::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    bottom: -4px;
+    height: 3px;
+    background-color: {{ settings.main }};
+}
+
+.about-page .gallery {
+    width: 84%;
+    margin: auto;
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.about-page .gallery img {
+    display: block;
+    width: 100%;
+    object-fit: contain;
+}
+
+.about-page .gallery img.small {
+    height: 70%;
+}
+
+.about-page .gallery.bottom {
+    margin-top: -80px;
+}
+
+.about-page .gallery.bottom img.small{
+    align-self: flex-end;
+}
+
+.about-page .about-text {
+    width: 38%;
+    margin: auto;
+    margin-top: -50px;
+    background-image: url('https://cdn.shopify.com/s/files/1/0635/9783/8522/files/about-text-bg-1.png?v=1700175110');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.about-page .about-text.contacts {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background-image: url('https://cdn.shopify.com/s/files/1/0635/9783/8522/files/about-text-bg-2.png?v=1700175757');
+}
+
+.about-page .about-text p,
+.about-page .about-text h3,
+.about-page .about-text a {
+    line-height: 120%;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.about-page .about-text h3 {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 600px) {
+    .about-page .about-text {
+        width: 80%;
+    }
+
+    .about-page .about-text {
+        margin-top: -20px;
+    }
+
+    #about-banner {
+        background-position: left;
+        height: 80vh;
+    }
+}
+

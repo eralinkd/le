@@ -1,0 +1,223 @@
+<div class="latest-drop" id="latest-drop">
+    <h2>{{ 'latest-drop.drop.title' | t }}</h2>
+    <div class="cards">
+        <div class="drop products-container">
+        </div>
+    </div>
+
+    <div class="cards">
+        <div class="drop products-container">
+        </div>
+
+        <p>
+            <a href="{{linklists.header-menu.links[0].url}}">{{ 'latest-drop.drop.view_all' | t}}</a>
+            <img src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left.svg?v=1698924671" id="latest-drop-scroll-left">
+            <img class="right" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-right.svg?v=1698924671" id="latest-drop-scroll-right">
+        </p>
+    </div>
+
+    <h2 class="exclusive-header">{{ 'latest-drop.exclusive.title' | t }}</h2>
+    <div class="cards">
+        <div class="exclusive products-container">
+
+        </div>
+
+        <p>
+            <a href="{{linklists.header-menu.links[2].url}}">{{ 'latest-drop.drop.view_all' | t}}</a>
+            <img src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left.svg?v=1698924671" id="latest-drop-exclusive-scroll-left">
+            <img class="right" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-right.svg?v=1698924671" id="latest-drop-exclusive-scroll-right">
+        </p>
+    </div>
+
+            <script>
+                let products = [];
+                let newProduct = [];
+                
+                let n = {{collections['frontpage'].products.size}};
+                const firstLineProductsCount = Math.ceil(n/2);
+                const secondLineProductsCount = n - firstLineProductsCount;
+                const latestDrop = document.getElementById('latest-drop');
+                const drops = latestDrop.querySelectorAll('.drop.products-container');
+                const scrollRightButton = latestDrop.querySelector('#latest-drop-scroll-right');
+                const scrollLeftButton = latestDrop.querySelector('#latest-drop-scroll-left');
+
+                {% assign n = collections['frontpage'].products.size | minus: 1 %}
+                {% for i in (0..n) %}
+                    newProduct = {
+                        img: '{{collections['frontpage'].products[i].featured_image | image_url}}',
+                        imgHover: '{{collections['frontpage'].products[i].images[1] | image_url}}',
+                        title: '{{collections['frontpage'].products[i].title}}',
+                        price: '{{collections['frontpage'].products[i].price | money}}',
+                        oldPrice: '{{collections['frontpage'].products[i].compare_at_price | money}}',
+                        id: '{{collections['frontpage'].products[i].variants[0].id}}',
+                        url: '{{collections['frontpage'].products[i].url}}',
+                        available:'{{collections['frontpage'].products[i].available}}',
+                        {% if collections['frontpage'].products[i].metafields.custom.rework.value == true %}
+                            className: 'rework',
+                        {% elsif collections['frontpage'].products[i].metafields.custom.exclusive.value == true %}
+                            className: 'exclusive',
+                        {% else %}
+                            className: 'common',
+                        {% endif %}
+                    };
+
+                    products.push(newProduct);
+                {% endfor %}
+
+                let lastDropIndexFirst = 0;
+                let lastDropIndexSecond = 0
+
+                function scrollFunction(drop, dropNumber) {
+                    const scrollLeft = drop.scrollLeft + drop.offsetLeft;
+                    const dropWidth = drop.children[0].offsetWidth * (drop.children.length - 2);
+                    
+                    const targetScroll = dropWidth - drop.children[0].offsetWidth * 4;
+                    const cardsToAdd = Math.floor(scrollLeft / targetScroll);
+                    
+                    for (let i = 0; i < cardsToAdd; i++) {
+                        if (dropNumber === 0) {
+                            appendCard(drop, lastDropIndexFirst, products)
+                            lastDropIndexFirst = (lastDropIndexFirst + 1) % firstLineProductsCount;
+                        }
+                        else {
+                            appendCard(drop, lastDropIndexSecond + firstLineProductsCount, products)
+                            lastDropIndexSecond = (lastDropIndexSecond + 1) % secondLineProductsCount;
+                        }
+                    }
+                    toggleScrollLeftButton();
+                }
+
+                function toggleScrollLeftButton() {
+                    if (drops[0].scrollLeft > 0 || drops[1].scrollLeft > 0) {
+                        scrollLeftButton.src = 'https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left-active.svg?v=1698924671';
+                    }
+                    else {
+                        scrollLeftButton.src = 'https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left.svg?v=1698924671';
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const cardsScrollOreloadCounter = 5;
+                    for (let j = 0; j < cardsScrollOreloadCounter; j++) {
+                        for (let i = 0; i < firstLineProductsCount; i++) {
+                            appendCard(drops[0], i, products)
+                        }
+                    }
+
+                    for (let j = 0; j < cardsScrollOreloadCounter; j++) {
+                        for (let i = 0; i < secondLineProductsCount; i++) {
+                            appendCard(drops[1], i + firstLineProductsCount, products)
+                        }
+                    }
+
+                    const dropWidth = drops[0].offsetWidth;
+
+                    drops.forEach((drop, index) => {
+                        drop.addEventListener('scroll', () => scrollFunction(drop, index));
+                    });
+                    
+                    scrollRightButton.addEventListener('click', () => {
+                        toggleScrollLeftButton();
+                        for (let i = 0; i < firstLineProductsCount; i++) {
+                            appendCard(drops[0], i, products)
+                        }
+                        for (let i = 0; i < secondLineProductsCount; i++) {
+                            appendCard(drops[1], i + firstLineProductsCount, products)
+                        }
+                        drops.forEach((drop) => {
+                            drop.scrollBy({left:dropWidth, top:0, behavior:"smooth"});
+                        })
+                    });  
+
+                    scrollLeftButton.addEventListener('click', () => {
+                        toggleScrollLeftButton();
+                        drops.forEach((drop) => {
+                            drop.scrollBy({left:-dropWidth, top:0, behavior:"smooth"});
+                        })
+                    })
+                });
+            </script>
+
+            <script>
+                let productsExclusive = [];
+                let newProductsExclusive = [];
+
+                let nExclusive = {{collections['exclusive'].products.size}};
+                const exclusive = latestDrop.querySelector('.exclusive');
+                const scrollRightButtonExclusive = latestDrop.querySelector('#latest-drop-exclusive-scroll-right');
+                const scrollLeftButtonExclusive = latestDrop.querySelector('#latest-drop-exclusive-scroll-left');
+
+                {% assign nExclusive = collections['exclusive'].products.size | minus: 1 %}
+                {% for i in (0..nExclusive) %}
+                    if ('{{collections['exclusive'].products[i].available}}' == 'true') {
+                        newProduct = {
+                            img: '{{collections['exclusive'].products[i].featured_image | image_url}}',
+                            imgHover: '{{collections['exclusive'].products[i].images[1] | image_url}}',
+                            title: '{{collections['exclusive'].products[i].title}}',
+                            price: '{{collections['exclusive'].products[i].price | money}}',
+                            oldPrice: '{{collections['exclusive'].products[i].compare_at_price | money}}',
+                            id: '{{collections['exclusive'].products[i].variants[0].id}}',
+                            url: '{{collections['exclusive'].products[i].url}}',
+                            available:'{{collections['exclusive'].products[i].available}}',
+                            className: 'exclusive',
+                        };
+                        productsExclusive.push(newProduct);
+                    }
+                    else {
+                        nExclusive -= 1;
+                    }
+                {% endfor %}
+
+                let exclusiveIndex = 0;
+
+                function scrollFunctionExclusive(drop) {
+                    const scrollLeft = drop.scrollLeft + drop.offsetLeft;
+                    const dropWidth = drop.children[0].offsetWidth * (drop.children.length - 2);
+                    
+                    const targetScroll = dropWidth - drop.children[0].offsetWidth * 4;
+                    const cardsToAdd = Math.floor(scrollLeft / targetScroll);
+                    
+                    for (let i = 0; i < cardsToAdd; i++) {
+                        appendCard(exclusive, exclusiveIndex, productsExclusive)
+                        exclusiveIndex = (exclusiveIndex + 1) % nExclusive;  
+                    }
+
+                    toggleScrollLeftButtonExclusive();
+                }
+
+                function toggleScrollLeftButtonExclusive() {
+                    if (exclusive.scrollLeft > 0) {
+                        scrollLeftButtonExclusive.src = 'https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left-active.svg?v=1698924671';
+                    }
+                    else {
+                        scrollLeftButtonExclusive.src = 'https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left.svg?v=1698924671';
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', function() {
+                    const cardsScrollOreloadCounter = 5;
+                    for (let j = 0; j < cardsScrollOreloadCounter; j++) {
+                        for (let i = 0; i < nExclusive; i++) {
+                            appendCard(exclusive, i, productsExclusive)
+                        }
+                    }
+
+                    const dropWidth = exclusive.offsetWidth;
+
+                    exclusive.addEventListener('scroll', () => scrollFunctionExclusive(exclusive));
+                    
+                    scrollRightButtonExclusive.addEventListener('click', () => {
+                        toggleScrollLeftButtonExclusive();
+                        for (let i = 0; i < nExclusive; i++) {
+                            appendCard(exclusive, i, productsExclusive)
+                        }
+                        exclusive.scrollBy({left:dropWidth, top:0, behavior:"smooth"});
+                    });  
+
+                    scrollLeftButtonExclusive.addEventListener('click', () => {
+                        toggleScrollLeftButtonExclusive();
+                        exclusive.scrollBy({left:-dropWidth, top:0, behavior:"smooth"});
+                    })
+                });
+            </script>
+</div>

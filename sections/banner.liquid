@@ -1,0 +1,51 @@
+<div class="banner slider" id="main-banner"></div>
+<div class="banner slider" id="main-banner-2"></div>
+
+<a id="banner-button" href="{{linklists.header-menu.links[1].url}}">{{ 'banner.button.text' | t }}</a>
+
+<script>
+    let bannerImgs = [];
+    const counter = +'{{collections['banner-background'].products.size }}' - 3;
+    {% assign counter = collections['banner-background'].products.size | minus: 1 %}
+
+    {% for i in (3..counter) %}
+        bannerImgs.push('{{collections['banner-background'].products[i].featured_image | image_url}}');
+    {% endfor %}
+
+    const banner = document.getElementById('main-banner');
+    const banner2 = document.getElementById('main-banner-2');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let bannerIndex = 0; // Start with the first image
+        banner.style.backgroundImage = `url('${bannerImgs[bannerIndex]}')`;
+        banner2.style.backgroundImage = `url('${bannerImgs[(bannerIndex + 1) % bannerImgs.length]}')`;
+        bannerIndex += 1;
+    
+        setInterval(() => {
+            changeBanner(bannerImgs[bannerIndex], bannerIndex);
+            bannerIndex = (bannerIndex + 1) % bannerImgs.length; // Update the index after changing the banner
+        }, 10000);
+    });
+    
+
+    function changeBanner(newImg) {
+        // Проверить, какой баннер в данный момент невидим
+        if (banner.style.opacity == '0') {
+            // Установить новое изображение на невидимый баннер
+            banner.style.backgroundImage = `url('${newImg}')`;
+            
+            // Начать транзицию видимости
+            banner.style.opacity = 1;
+            banner2.style.opacity = 0;
+        } else {
+            // Установить новое изображение на невидимый баннер
+            banner2.style.backgroundImage = `url('${newImg}')`;
+            
+            // Начать транзицию видимости
+            banner2.style.opacity = 1;
+            banner.style.opacity = 0;
+        }
+    }
+    
+    
+</script>

@@ -1,0 +1,89 @@
+.faq-wrapper {
+    display: grid;
+    gap: 18px;
+    width: 43vw;
+    margin: auto;
+}
+
+.faq-wrapper > h2 {
+    text-align: center;
+    font-family: "Manrope";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 46px;
+    text-transform: uppercase;
+    color: {{ settings.main }};
+}
+
+.faq-wrapper > ul {
+    font-family: "Manrope";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    color: {{ settings.main }};
+}
+
+.faq-wrapper > ul > li {
+    padding: 28px 0 18px 0;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid {{ settings.main }};
+}
+
+.faq-wrapper > ul > li::after {
+    content: "";
+    position: absolute;
+    right: 3px;
+    bottom: 21px;
+    background: url("https://cdn.shopify.com/s/files/1/0668/3974/0631/files/faq-arrow.svg?v=1698922967") center/cover no-repeat;
+    width: 8px;
+    height: 12px;
+    transition: all 0.5s;
+}
+
+.faq-wrapper > ul > li.active::after {
+    transform: rotate(90deg);
+}
+
+.faq-wrapper > .faq .answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 30px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+    transition: all 0.5s;
+    color: {{ settings.main }};
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .faq-wrapper {
+        width: 80%;
+        gap: 0;
+    }
+
+    .faq-wrapper>h2 {
+        margin-top: 30px;
+    }
+
+    .faq-wrapper>ul {
+        font-size: 16px;
+        line-height: 120%;
+    }
+
+    .faq-wrapper>ul>li {
+        padding: 12px 15px 6px 0;
+    }
+
+    .faq-wrapper>.faq .answer {
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,89 @@
+{
+    "header": {
+      "menu": {
+        "latest-drop": "Latest Drop",
+        "shop": "Shop",
+        "exclusive": "Exclusive",
+        "rework": "Rework",
+        "more": "More"
+      }
+    },
+
+    "banner": {
+      "button": {
+        "text": "Shop Now"
+      }
+    },
+
+    "latest-drop": {
+      "drop": {
+        "title": "LATEST DROP",
+        "view_all": "VIEW ALL"
+      },
+      "exclusive": {
+        "title": "EXCLUSIVE"
+      },
+      "notification": {
+        "text": "New item added to cart"
+      }
+    },
+
+    "rework": {
+      "content": {
+        "title": "REWORK",
+        "subtitle": "Vintage vest",
+        "text": "Masterful and savory! I didn’t just alter your vest, but I gave it a completely new style. Now it looks like a completely new accessory, ready to impress everyoné. Thé néw luxurious désign and the vérsatility of thé séams make this vést thé currént luxury itém."
+      },
+      "button": {
+        "text": "SÈÈ MORÈ"
+      }
+    },
+
+    "eco-care": {
+      "content": {
+        "title": "Eco care",
+        "subtitle": "Packaging of our goods",
+        "text_html": "Importantly, all our products aré packagéd in énvironméntally friendly matérials that minimize our impact on the énvironmént. Wé usé récycléd and sécondary packaging materials such as paper or cardboard.<br><br>We béliévé that évéryone can contributé to the presérvation of our planet, évén by buying rétro goods. And that is why our éco-friéndly packaging is an inappropriaté part of our mission to protéct thé énvironmént and promoté a stéél liféstylé."
+      }
+    },
+
+    "faq": {
+      "title": "FAQ",
+      "subtitle1": "Can I expect the vintage clothes to be in excellent condition?",
+      "answer1": "Absolutely! We take immense pride in curating a collection where each vintage piece is meticulously inspected to meet our high-quality standards. Our commitment is to provide you with timeless items that are not only stylish but also impeccably preserved. Every piece in our collection is chosen with care to ensure you receive the best in vintage fashion.",
+      "subtitle2": "How do I determine the right size for vintage clothing?",
+      "answer2": "Vintage sizing can vary from modern sizing, so we highly recommend checking the detailed measurements provided for each item in the product description. To ensure a proper fit, compare the measurements with your own body or with a similar item from your wardrobe. If you have any questions about sizing, feel free to reach out to our customer support team for personalized assistance.",
+      "subtitle3": "What if I change my mind after making a purchase?",
+      "answer3": " We understand that preferences can change. If you change your mind about a purchase, our return policy allows you to return the item within 30 days of receiving it. Please make sure the item is in its original condition with tags attached. Check our Returns & Exchanges page for more details on the process and any applicable fees."
+  },
+
+  "faq-product": {
+    "title": "FAQ",
+    "subtitle1": "What sets your vintage clothing apart from others on the market?",
+    "answer1": "Our vintage clothing stands out for its distinctive character and handpicked selection. We meticulously curate each piece to ensure it not only meets our quality standards but also tells a unique story. From timeless elegance to casual chic, our collection spans various styles, making it easy for you to find something that resonates with your individual taste.",
+    "subtitle2": "How should I care for my vintage clothing to keep it looking its best?",
+    "answer2": "Proper care is essential to preserve the beauty of your vintage garments. We recommend following the care instructions provided on the product page, which may include gentle washing, air-drying, or specific storage recommendations. Taking these simple steps will help maintain the integrity of the fabric and ensure your vintage pieces continue to shine.",
+    "subtitle3": "Can I alter or customize the vintage clothing to match my personal style?",
+    "answer3": "While we understand the desire for personalization, our vintage clothing is carefully selected to retain its original charm. We believe that the uniqueness of each piece contributes to its appeal. While alterations are not offered, we encourage you to embrace the authenticity of your vintage find. Mix and match with modern accessories to create a style that's uniquely yours.",
+    "subtitle4": "How can I ensure the sizing will be right for me when buying vintage clothing?",
+    "answer4": "To find the perfect fit, we provide detailed measurements in the product description. Please refer to these measurements and compare them to your own body or a well-fitting garment you already own. If you have any questions or need assistance, our customer support team is here to help. Remember, vintage sizing may differ from contemporary sizing, so checking measurements is key to achieving the ideal fit.",
+    "subtitle5": "What makes your vintage t-shirts special?",
+    "answer5": "Our vintage t-shirts are chosen for their unique graphics, soft feel, and authentic worn-in character. Each shirt tells a story and carries a nostalgic vibe that's hard to find in modern reproductions. We carefully inspect and select t-shirts that showcase the charm of bygone eras, offering you a piece of history with every purchase.",
+    "subtitle6": "Can I return a vintage item if it doesn't meet my expectations?",
+    "answer6": "Absolutely. We want you to be thrilled with your purchase. If, for any reason, a vintage item doesn't meet your expectations, you can return it within 30 days of receiving it. Please ensure the item is in its original condition with tags attached. Visit our Returns & Exchanges page for more details on the process and any applicable fees. Your satisfaction is our priority."
+  },
+
+    "exclusive_page": {
+      "banner": {
+        "header": "ÉXCLUSIVÈ",
+        "text": "Welcome to our Exclusive category, where rarity, value, and quality intersect to create an exceptional collection. Each carefully curated piece embodies exclusivity, offering a unique blend of scarcity and meticulous craftsmanship. Explore this selection for an investment in timeless style, where every item reflects the essence of exclusivity."
+      }
+    },
+
+    "rework_page": {
+      "banner": {
+        "header": "RÉWORK",
+        "text": "Welcome to our Rework category, where uniqueness meets sustainability. Handmade with care, each item in this collection is crafted for individuality and can be recycled. Explore one-of-a-kind pieces that blend creativity with conscious fashion, celebrating the beauty of reimagined style."
+      }
+    }
+}

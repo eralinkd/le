@@ -1,0 +1,59 @@
+var prevScrollpos = window.pageYOffset;
+
+var headerDiv = document.querySelector("header");
+const dropdown = headerDiv.querySelectorAll(".dropdown");
+var headerBottom = headerDiv.offsetTop + headerDiv.offsetHeight;
+let headerAppearColor = 'rgba(106, 127, 167, 0.60)';
+let headerAfterHoverColor = 'transparent';
+
+if (window.location.pathname === '/' || window.location.pathname === '/de') {
+    headerDiv.style.backgroundColor = "transparent";
+    dropdown.forEach(dropdown => {
+        dropdown.style.backgroundColor = 'rgba(106, 127, 167, 0.60)';
+    })
+
+    headerDiv.addEventListener('mouseover', function() {
+        this.style.backgroundColor = 'rgba(106, 127, 167, 0.60)';
+    });
+
+    headerDiv.addEventListener('mouseout', function() {
+        this.style.backgroundColor = headerAfterHoverColor;
+    });
+}
+else {
+    headerDiv.style.backgroundColor = "transparent";
+    dropdown.forEach(dropdown => {
+        dropdown.style.backgroundColor = '{{settings.main}}';
+    })
+    headerDiv.style.backgroundColor = '{{settings.main-header-type-2}}';
+    headerAppearColor = '{{settings.main-header-type-2}}';
+    headerAfterHoverColor = '{{settings.main-header-type-2}}';
+
+    headerDiv.addEventListener('mouseover', function() {
+        this.style.backgroundColor = '{{settings.main}}';
+    });
+
+    headerDiv.addEventListener('mouseout', function() {
+        this.style.backgroundColor = headerAfterHoverColor;
+    });
+}
+
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos  || currentScrollPos < headerBottom){  
+      if (currentScrollPos > 200) {
+          headerDiv.style.backgroundColor = headerAppearColor;
+      }
+      else {
+          headerDiv.style.backgroundColor = headerAfterHoverColor;
+      }
+
+      headerDiv.style.top = "20px";
+  }
+  else{
+      headerDiv.style.transition = "all .5s ease-in-out";
+      headerDiv.style.top = "-7.2rem";
+  } 
+
+  prevScrollpos = currentScrollPos;
+}

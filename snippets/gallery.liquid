@@ -1,0 +1,19 @@
+<div class="gallery-wrapper">
+    <h2>#WÉAR VINTAGÉ NOW</h2>
+    <div>
+        <p>
+            <img src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/inst.svg?v=1698923400">
+            <a href="{{settings.inst_url}}">@L’E.mmm</a>
+        </p>
+        <p>#Vintagé #Stréétwéar</p>
+        <p></p>
+    </div>
+
+    <div class="gallery">
+        {% for product in collections['gallery'].products %}
+            <img src="{{product.featured_image | image_url}}">
+        {% endfor %}
+    </div>
+
+    <a href="{{linklists.header-menu.links[1].url}}">Shop Now</a>
+</div>

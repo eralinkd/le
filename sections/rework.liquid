@@ -1,0 +1,75 @@
+<div class="rework-wrapper">
+<h2>{{ 'rework.content.title' | t }}</h2>
+<div class="rework">
+    <div class="content">
+        <div class="slider-container">
+            <img class="background-image" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/rework-before.png?v=1698925806" alt="Фоновая картинка" draggable="false">
+            <img class="overlay-image" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/rework-after_aea76b93-7e2d-4f04-afb9-2c3a872863d8.png?v=1698925806" alt="Основная картинка" draggable="false">
+            <div class="slider-handle">
+                <div class="slider-circle"></div>
+            </div>
+        </div>
+        <div class="description">
+            <h3>{{ 'rework.content.subtitle' | t }}</h3>
+            <p>{{ 'rework.content.text' | t }}</p>
+            <a href="{{linklists.header-menu.links[3].url}}">{{ 'rework.button.text' | t }}</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const sliderHandle = document.querySelector('.slider-handle');
+    const overlayImage = document.querySelector('.overlay-image');
+    const sliderContainer = document.querySelector('.slider-container');
+
+    let isDragging = false;
+
+    const moveSlider = (position) => {
+        const overlayWidth = overlayImage.getBoundingClientRect().width;
+        let newLeft = position - sliderContainer.offsetLeft;
+
+        if (newLeft < 0) {
+            newLeft = 0;
+        } else if (newLeft > overlayWidth) {
+            newLeft = overlayWidth;
+        }
+
+        sliderHandle.style.left = newLeft + 'px';
+        overlayImage.style.clipPath = `inset(0px ${overlayWidth - newLeft}px 0px 0px)`;
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let x = sliderHandle.offsetLeft;
+        overlayImage.style.clipPath = `inset(0px ${x}px 0px 0px)`;
+    });
+
+    const startDrag = (e) => {
+        isDragging = true;
+        document.body.style.userSelect = 'none';
+    };
+
+    const endDrag = () => {
+        isDragging = false;
+        document.body.style.userSelect = 'auto';
+    };
+
+    sliderHandle.addEventListener('mousedown', startDrag);
+    document.addEventListener('mouseup', endDrag);
+
+    document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            moveSlider(e.clientX);
+        }
+    });
+
+    sliderHandle.addEventListener('touchstart', startDrag, { passive: false });
+    document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            moveSlider(touch.clientX);
+        }
+    }, { passive: false });
+
+</script>
+</div>

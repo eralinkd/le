@@ -1,0 +1,338 @@
+.card-wrapper {
+    display: block;
+    flex: 0 0 20%;
+}
+
+.card-wrapper .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-wrapper .card > .reveal {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    height: 33vh;
+    display: flex; 
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-wrapper .card > .reveal > img.front,
+.card-wrapper .card > .reveal > img.hidden {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 73%;
+    margin: auto;
+    cursor: pointer;
+    object-fit: contain;
+    transition: opacity ease-in-out .3s;
+}
+
+.card-wrapper .card > .reveal > img.hidden {
+    opacity: 0;
+}
+
+.card-wrapper .card > .reveal > .under-product {
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: 22%;
+    padding: 0 18px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: flex-end;
+    z-index: 3;
+    transition: all ease-in-out .3s;
+    opacity: 0;
+}
+
+.card-wrapper .card > .reveal > .exclusive.under-product {
+    opacity: 1;
+}
+
+.card-wrapper .card > .reveal > .rework.under-product,
+.card-wrapper .card > .reveal > .exclusive.under-product,
+.card-wrapper .card > .reveal > .under-product.discount,
+.card-wrapper .card:hover > .reveal > .common.under-product {
+    opacity: 1;
+}
+
+.card-wrapper .card > .reveal > div.under-product > .line {
+    width: 32%;
+    height: 4px;
+    transition: all ease-in-out .3s;
+    background: {{ settings.main-inactive-icons }};
+}
+
+.card-wrapper .card > .reveal > div.under-product > .line.discount {
+    width: 50%;
+    opacity: 1;
+    background: {{ settings.accent }};
+}
+
+.card-wrapper .card > .reveal > .exclusive.under-product > .line.common {
+    width: 50%;
+    background: #F90;
+}
+
+.card-wrapper .card > .reveal > .rework.under-product > .line.common {
+    width: 50%;
+    background: #0081AA;
+}
+
+.card-wrapper .card:hover > .reveal > .rework.under-product > .line,
+.card-wrapper .card:hover > .reveal > .exclusive.under-product > .line,
+.card-wrapper .card:hover > .reveal > .common.under-product.discount > .line {
+    width: 32%;
+}
+
+.card-wrapper .card > .reveal > .rework.under-product .add-to-cart-form,
+.card-wrapper .card > .reveal > .exclusive.under-product .add-to-cart-form,
+.card-wrapper .card > .reveal > .common.under-product.discount .add-to-cart-form {
+    display: block;
+    width: 0;
+    height: 100%;
+    z-index: 2;
+}
+
+.card-wrapper .card:hover > .reveal > .rework.under-product .add-to-cart-form,
+.card-wrapper .card:hover > .reveal > .exclusive.under-product .add-to-cart-form,
+.card-wrapper .card:hover > .reveal > .common.under-product.discount .add-to-cart-form {
+    width: 32%;
+}
+
+.card-wrapper .card > .reveal > div .cart {
+    height: 100%;
+    background-image: url('https://cdn.shopify.com/s/files/1/0668/3974/0631/files/item-cart.svg?v=1698923501');
+    background-size: 64%;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.card-wrapper .card > .reveal > .common.under-product .add-to-cart-form {
+    display: block;
+    width: 0;
+    height: 100%;
+    z-index: 2;
+}
+
+.card-wrapper .card.unavailable > .reveal > .under-product .add-to-cart-form {
+    display: none;
+}
+
+.card-wrapper .card.unavailable > .reveal > .under-product {
+    opacity: 1;
+}
+
+.card-wrapper .card.unavailable > .reveal > .under-product .line {
+    width: 50%;
+}
+
+.card-wrapper .card.unavailable:hover > .reveal > .under-product .line {
+    width: 50%;
+}
+
+.card-wrapper .card.unavailable .price {
+    color: {{settings.main-inactive-icons}};
+}
+
+.card-wrapper .card:hover > .reveal > .common.under-product .add-to-cart-form {
+    width: 32%;
+}
+
+.card-wrapper .card > .reveal > div .cart:hover {
+    background-image: url('https://cdn.shopify.com/s/files/1/0668/3974/0631/files/item-cart-hover.svg?v=1698924636');
+}
+
+.card-wrapper .card > p {
+    text-align: center;
+}
+
+.card-wrapper .card > .name {
+    margin-top: -9px;
+    min-height: 42px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 150%;
+    padding: 0 35px;
+    color: {{ settings.main }};
+}
+
+.card-wrapper .card > .price,
+.card-wrapper .card > .price-old {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+
+    margin-top: 13px;
+    color: {{ settings.main }};
+}
+
+.card-wrapper .card > .price.discount {
+    color: {{ settings.accent }};
+}
+
+.card-wrapper .card > .price-old {
+    text-decoration: line-through;
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    min-height: 14px;
+    color: {{ settings.main-inactive-icons }};
+}
+
+.card-wrapper .card .under-product > .ticket {
+    width: 20%;
+    height: 45px;
+    left: 50%;
+    top: -32%;
+    transform: translateX(-50%);
+    background-image: url('https://cdn.shopify.com/s/files/1/0668/3974/0631/files/ticket.svg?v=1698926259');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    transition: all ease-in-out .3s;
+}
+
+.card-wrapper .card:hover .under-product > .ticket {
+    opacity: 0;
+}
+
+.card-wrapper .card .under-product .exclusive-ico,
+.card-wrapper .card .under-product .rework-ico {
+    width: 40%;
+    height: 16px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('https://cdn.shopify.com/s/files/1/0668/3974/0631/files/exclusive-ico.svg?v=1698926260');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    transition: all ease-in-out .5s;
+}
+
+.card-wrapper .card:hover .under-product .ticket > .exclusive-ico {
+    opacity: 0;
+}
+
+.card-wrapper .card .under-product > .exclusive-ico {
+    width: 8%;
+    opacity: 0;
+    top: -4%;
+    transform: translate(-50%, 0);
+}
+
+.card-wrapper .card:hover .under-product > .exclusive-ico.first {
+    transform: translate(-420%, 70%) rotate(45deg);
+}
+
+
+.card-wrapper .card:hover .under-product > .exclusive-ico {
+    opacity: 1;
+    transform: translate(310%, 70%) rotate(-45deg);
+}
+
+.card-wrapper .card .under-product > .rework-ico {
+    width: 28px;
+    height: 28px;
+    top: 4%;
+    opacity: 1;
+    background-image: url('https://cdn.shopify.com/s/files/1/0635/9783/8522/files/icon-rework.svg?v=1699716240');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.card-wrapper .card:hover .under-product > .rework-ico.first {
+    top: -4%;
+    transform: translateX(-260%) scale(0.8);
+}
+
+.card-wrapper .card:hover .under-product > .rework-ico {
+    top: -4%;
+    transform: translateX(160%) scale(0.8);
+}
+
+.card-wrapper .card .under-product > .ticket,
+.card-wrapper .card .under-product .exclusive-ico,
+.card-wrapper .card .under-product > .rework-ico {
+    position: absolute;
+}
+
+.card-wrapper .card .rework.under-product > .ticket,
+.card-wrapper .card .rework.under-product > .exclusive-ico,
+.card-wrapper .card .exclusive.under-product > .rework-ico,
+.card-wrapper .card .common.under-product > .ticket,
+.card-wrapper .card .common.under-product .exclusive-ico,
+.card-wrapper .card .common.under-product > .rework-ico {
+    display: none;
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .card-wrapper {
+        flex: 0 0 50%;
+    }
+
+    .card-wrapper .card>.reveal {
+        height: 20vh;
+    }
+
+    .card-wrapper .card .under-product>.ticket {
+        top: -52%;
+    }
+
+    .card-wrapper .card > .name {
+        height: 52px;
+        min-height: auto;
+        overflow: hidden;
+        font-size: 12px;
+    }
+
+    .card-wrapper .card:hover .under-product>.exclusive-ico {
+        transform: translate(310%,25%) rotate(-45deg);
+    }
+
+    .card-wrapper .card:hover .under-product>.exclusive-ico.first {
+        transform: translate(-420%, 25%) rotate(45deg);
+    }
+
+    .card-wrapper .card .under-product>.rework-ico {
+        top: 1%;
+        width: 21px;
+        height: 21px;
+    }
+
+    .card-wrapper .card:hover .under-product>.rework-ico {
+        top: -26%;
+        transform: translate(125%);
+    }
+
+    .card-wrapper .card:hover .under-product>.rework-ico.first {
+        top: -26%;
+        transform: translate(-215%);
+    }
+
+    .card-wrapper .card>.reveal>div.under-product>.line {
+        height: 6px;
+    }
+
+    .card-wrapper .card:hover .under-product > .ticket {
+        opacity: 0;
+    }
+
+    .card-wrapper .card>.price,
+    .card-wrapper .card>.price-old {
+        font-size: 14px;
+    }
+  }

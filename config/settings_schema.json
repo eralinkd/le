@@ -1,3 +1,141 @@
 [
+    {
+        "name": "Colors",
+        "settings": [
+            {
+                "type": "color",
+                "id": "main",
+                "label": "main",
+                "default": "rgba(6, 11, 38, 0.90)"
+            },
+            {
+                "type": "color",
+                "id": "secondary",
+                "label": "secondary",
+                "default": "#8FA4CE"
+            },
+            {
+                "type": "color",
+                "id": "accent",
+                "label": "accent",
+                "default": "#8E2E18"
+            },
+            {
+                "type": "color",
+                "id": "light",
+                "label": "light",
+                "default": "#fff"
+            },
+            {
+                "type": "color",
+                "id": "dark",
+                "label": "dark",
+                "default": "#4D4D4D"
+            },
+            {
+                "type": "color",
+                "id": "whitebutton",
+                "label": "white button",
+                "default": "rgba(255, 255, 255, 0.90)"
+            },
+            {
+                "type": "color",
+                "id": "header",
+                "label": "header",
+                "default": "rgba(106, 127, 167, 0.70)"
+            },
+            {
+                "type": "color",
+                "id": "footer",
+                "label": "footer",
+                "default": "rgba(8, 17, 62, 0.90)"
+            },
+            {
+                "type": "color",
+                "id": "footer-text",
+                "label": "footer-text",
+                "default": "#CFCFCF"
+            },
+            {
+                "type": "color",
+                "id": "main-inactive-icons",
+                "label": "main inactive icons",
+                "default": "#969696"
+            },
+            {
+                "type": "color",
+                "id": "main-header-type-2",
+                "label": "header default",
+                "default": "rgba(6, 11, 38, 0.75)"
+            }
+        ]
+    },
 
+
+    {
+        "name": "Drop day settings",
+        "settings": [
+            {
+                "type": "number",
+                "label": "Drop day (1-7)",
+                "id": "drop_day",
+                "default": 6
+            },
+            {
+                "type": "number",
+                "label": "Drop hour (GMT 0)",
+                "id": "drop_hour",
+                "default": 12
+            }
+        ]
+    },
+
+    {
+        "name": "Inst url",
+        "settings": [
+            {
+                "type": "text",
+                "label": "Inst URL",
+                "id": "inst_url",
+                "default": "https://www.instagram.com/maxgalkinru/?hl=ru"
+            }
+        ]
+    },
+
+    {
+        "name": "Contact info",
+        "settings": [
+            {
+                "type": "text",
+                "label": "Phone",
+                "id": "phone",
+                "default": "+4917670809921"
+            },
+            {
+                "type": "text",
+                "label": "E-Mail",
+                "id": "email",
+                "default": "info@LumiereEpoque.com"
+            }
+        ]
+    },
+
+    {
+        "name": "Announcement messages",
+        "settings": [
+            {
+                "type": "textarea",
+                "label": "Announcements",
+                "id": "announcement",
+                "default": "Weekly drop every Saturday at 2pm"
+            },
+
+            {
+                "type": "number",
+                "label": "Interval (s)",
+                "id": "timer",
+                "default": 10
+            }
+        ]
+    }
 ]

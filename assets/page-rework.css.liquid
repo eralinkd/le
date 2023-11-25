@@ -1,0 +1,42 @@
+.page-rework #rework-banner {
+    flex-direction: column;
+    gap: 30px;
+    height: 80vh;
+    position: relative;
+    z-index: 2;
+    justify-content: flex-start;
+}
+
+.page-rework #rework-banner h2 {
+    margin-top: 152px;
+    text-align: center;
+    width: 40%;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 150%;
+    color: {{ settings.light }};
+}
+
+.page-rework #rework-banner p {
+    text-align: center;
+    width: 40%;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    color: {{ settings.light }};
+}
+
+
+.disabled {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .page-rework #rework-banner {
+        margin-bottom: -80px;
+    }
+
+    .page-rework #rework-banner p {
+        width: 80%;
+    }
+}

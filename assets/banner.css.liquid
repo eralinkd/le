@@ -1,34 +1,77 @@
 .banner {
-    height: 75vh;
-    background-image: url('banner-bg.png');
-    background-size: 100%;
-    background-position: top;
+    height: 48vw;
+    background-image: url("");
+    background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.banner > a {
-    width: 228px;
-    height: 75px;
+.banner.slider {
+    position: absolute;
+    width: 100vw;
+    transition: all ease-out 0.7s;
+}
+
+#main-banner-2 {
+    position: absolute;
+    width: 100vw;
+    transition: all ease-out 0.7s;
+    z-index: -1;
+    opacity: 0;
+}
+
+#shopify-section-banner {
+    position: relative;
+    z-index: 1;
+    height: 48vw;
+}
+
+#banner-button {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 218px;
+    height: 70px;
+    padding: 0 7px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-family: 'Arbutus', serif;
-    font-size: 21px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
     transition: all ease-out 0.6s;
-    background-color: '{{ settings.yellow }}';
-    color: '{{ settings.red }}';
+    margin: 0 auto;
+    z-index: 1;
+    background-color: {{ settings.whitebutton }};
+    color: {{ settings.main }};
 }
 
-.banner > a:hover {
-    color: #fff;
-    background-color: '{{ settings.header-bg-hover }}';
+#banner-button:hover {
+    background-color: {{ settings.main }};
+    color: {{ settings.light }};
 }
 
-.banner > a:active {
-    background-color: '{{ settings.red }}';
-    color: '{{ settings.yellow }}';
+#banner-button:active {
+    color: {{ settings.light }};
+    background-color: {{ settings.dark }};
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .banner {
+        height: 70vh;
+    }
+
+    #shopify-section-banner {
+        height: 70vh;
+    }
 }

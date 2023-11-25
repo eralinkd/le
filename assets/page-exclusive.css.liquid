@@ -1,0 +1,37 @@
+.page-exclusive #exclusive-banner {
+    flex-direction: column;
+    gap: 30px;
+    height: 80vh;
+    position: relative;
+    z-index: 2;
+    justify-content: flex-start;
+}
+
+.page-exclusive #exclusive-banner h2 {
+    margin-top: 152px;
+    text-align: center;
+    width: 40%;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 150%;
+    color: {{ settings.light }};
+}
+
+.page-exclusive #exclusive-banner p {
+    text-align: center;
+    width: 40%;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    color: {{ settings.light }};
+}
+
+@media screen and (max-width: 600px) {
+    .page-exclusive #exclusive-banner {
+        margin-bottom: -80px;
+    }
+    
+    .page-exclusive #exclusive-banner p {
+        width: 80%;
+    }
+}

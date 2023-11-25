@@ -1,0 +1,32 @@
+<div class="about-page">
+    <div class="banner" id="about-banner"> 
+    </div>
+
+    <div class="about-text">
+        <h2><span>ABOUT OUR COMPANY</span></h2> 
+        <br><br>
+        <p>We are Simon and Niklas, the founders of Double Double Vintage. We started Double Double in late 2017 out of our mutual passion of collecting vintage clothing and sneakers from the 90s, especially sportswear and old Nike apparel as well as other brands. With Double Double we finally had a reason to get all the vintage pieces we liked - even if they weren't our size - and could make them accessible to others who hopefully have the same appreciation for them as we do.</p>
+        <br>
+        <p>We carefully source our items from a diversity of flea markets, second hand shops all over Europe as well as from the internet and other sources. We love the hunt for cool vintage pieces, going through racks of clothing and getting surprised by whats out there to find every other day. A well-curated selection of different directions is very important for us. While our main focus is rare 90s streetwear & sportswear by Brands like Nike, adidas, Tommy Hilfiger, Polo Ralph Lauren, Stussy, Reebok, Puma, Fila, Helly Hansen as well as all kinds of cool sport pieces from the NBA to the NFL, we're also looking to source a lot of pieces with popcultural reference including TV shows, Movies, Music and more. Last but not least a nice and clean Non-Brand vintage piece can be the best find ever at very decent prices.</p>
+        <p>We hope You enjoy shopping here!</p>
+    </div>
+
+    <h2 class="bottom"><span>CONTACT US</span></h2>
+
+    <div class="about-text contacts">
+        <h3>Contact</h3>
+        <p>Please note that we don't have a phone hotline. If you have any questions regarding your order, a return or anything related to our shop, feel free to message us on Whatsapp (number below), Instagram or via E-Mail and we'll reach out in 24 hours within our office hours. However in urgent cases you can call us through the number below. Please note our office hours are Monday-Friday 09:00-18:00.</p>
+        <h3>Telephone</h3>
+        <p><a href="tel:{{ settings.phone }}">{{ settings.phone }}</a></p>
+        <h3>E-Mail</h3>
+        <p><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
+    </div>
+    
+    <script>
+        const banner = document.getElementById('about-banner');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            banner.style.backgroundImage = `url('{{ collections['banner-background'].products[2].featured_image | image_url }}')`;
+        })
+    </script>
+</div>

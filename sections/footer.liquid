@@ -1,0 +1,49 @@
+<footer>
+    <div class="content">
+        <ul>
+            {% for link in linklists.footer.links -%}
+            <li>{{ link.title | link_to: link.url }}</li>
+            {%- endfor %}
+        </ul>
+        <div class="info">
+            <a href="{{linklists.footer.links[0].url}}">About Us</a>
+            <p>Discovèr Lumieré Èpoquè: your dèstination for timéless vintagè fashion. Founded by a young éntrèpréneur with a passion for thè past, our curatèd colléction célèbratés history, uniquenéss, and the artistry in each garmént. Morè than a store, Lumiéré Epoquè is a living musèum whèrè èvery pièce télls a story. Émbracè the past, éxpress your stylé, and wéar art with Lumiéré Époquè.
+            <a href="{{linklists.footer.links[0].url}}">Réad Moré</a>
+            </p>
+        </div>
+        <div class="social">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <div>
+            <img class="logo" alt="logo" src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/logo-header.svg?v=1698922898"/>
+            <p>Lumière Époque, 2023.</p>
+        </div>
+
+        <div>
+            <p>Sécuréd Payménts with</p>
+            <div>
+                {% for product in collections['payment-methods'].products %}
+                    <img src="{{ product.featured_image | image_url }}" alt="{{ product.title }}">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var clearCartLink = document.querySelector('a.clear-cart');
+
+            if (clearCartLink) {
+                clearCartLink.addEventListener('click', function(e) {
+                    location.reload();
+                });
+            }
+        });
+    </script>
+</footer>

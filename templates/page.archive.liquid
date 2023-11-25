@@ -1,0 +1,409 @@
+<div class="shop">
+    <div id="shop-overlay" class="closed"></div>
+    <div class="filters-box closed">
+        <h3><div id="filters-close"><</div>Filters</h3>
+
+        <ul class="filters">
+            <li class="filter">Colléction</li>
+            <ul class="collection"></ul>
+
+            <li class="filter">Typé</li>
+            <ul class="type"></ul>
+
+            <li class="filter">Brand</li>
+            <ul class="brand"></ul>
+
+            <li class="filter">Sizé</li>
+            <ul class="size"></ul>
+
+            <li class="filter">Pricé</li>
+                <ul class="price">
+                    <label class="price-content">
+                        <div class="values">
+                            <div>
+                                <p id="min-value">50€</p>
+                                <label>min</label>
+                            </div>
+                    
+                            <div>
+                                <p id="max-value">500€</p>
+                                <label>max</label>
+                            </div>
+                        </div>
+                
+                        <div class="range-slider">
+                            <div class="range-fill"></div>
+                            <input
+                                id="min-price"
+                                type="range"
+                                class="min-price"
+                            />
+                            <input
+                                id="max-price"
+                                type="range"
+                                class="max-price"
+                            />
+                        </div>
+                    </label>
+                </ul>
+
+            <li class="filter">Color</li>
+            <ul class="color"></ul> 
+        </ul> 
+
+        <p><span id="clear" class="hidden">Cléar</span></p>
+        <div class="divider"></div>
+    </div>
+
+    <div class="products">
+        <h1><span>ARCHIVÉD PRODUCTS</span></h1>
+        <div class="open-filters">Filters</div>
+        <div class="all-products-container">
+        </div>
+    </div>
+
+    <script>
+        const shop = document.querySelector('.shop');
+        const divider = shop.querySelector('.divider');
+        const filtersBox = shop.querySelector('.filters-box');
+
+        divider.addEventListener('click', () => {
+            divider.style.right = "100%";
+            filtersBox.style.width = "0";
+
+            if (divider.classList.contains('closed')) {
+                filtersBox.style.width = "170px";
+                divider.style.right = "-35px";
+            }
+
+            divider.classList.toggle('closed');
+        })
+
+        const allProductsContainer = shop.querySelector('.all-products-container');
+        const filters = filtersBox.querySelectorAll('.filter');
+        const filterUls = filtersBox.querySelector('ul').querySelectorAll('ul');
+        filters.forEach((filter, index) => {
+            filter.addEventListener('click', () => {
+                const siblingUl = filterUls[index];
+                if (siblingUl.style.maxHeight === '0px' || !siblingUl.style.maxHeight) {
+                    siblingUl.style.maxHeight = '2000px';
+                    const scrollHeight = siblingUl.scrollHeight;
+                    siblingUl.style.maxHeight = scrollHeight + 20 + 'px';
+                    filter.classList.add('active');
+                } else {
+                    siblingUl.style.maxHeight = '0px';
+                    filter.classList.remove('active');
+                }
+            });
+        });
+
+
+        
+        const filterCategories = shop.querySelector('ul').querySelectorAll('ul');
+        let products = [];
+        let newProduct = [];
+        
+        let types = [];
+        let brands = [];
+        let sizes = [];
+        let colors = [];
+
+        const minPriceInput = document.getElementById('min-price');
+        const maxPriceInput = document.getElementById('max-price');
+        let minPrice = Math.pow(10, 1000);
+        let maxPrice = 0;
+        const n = {{collections['shop'].products.size}};
+        {% assign n = collections['shop'].products.size | minus: 1 %}
+        {% for i in (0..n) %}
+            if (+'{{collections['shop'].products[i].price}}'/100 < minPrice) {
+                minPrice = +'{{collections['shop'].products[i].price}}'/100;
+            }
+            if (+'{{collections['shop'].products[i].price}}'/100 > maxPrice) {
+                maxPrice = +'{{collections['shop'].products[i].price}}'/100;
+            }
+            newProduct = {
+                img: '{{collections['shop'].products[i].featured_image | image_url}}',
+                imgHover: '{{collections['shop'].products[i].images[1] | image_url}}',
+                title: '{{collections['shop'].products[i].title}}',
+                price: '{{collections['shop'].products[i].price | money}}',
+                oldPrice: '{{collections['shop'].products[i].compare_at_price | money}}',
+                id: '{{collections['shop'].products[i].variants[0].id}}',
+                url: '{{collections['shop'].products[i].url}}',
+                available:'{{collections['shop'].products[i].available}}',
+                category: '{{collections['shop'].products[i].metafields.custom.category.value}}',
+                rework: '{{collections['shop'].products[i].metafields.custom.rework.value}}',
+                exclusive: '{{collections['shop'].products[i].metafields.custom.exclusive.value}}',
+                type: '{{collections['shop'].products[i].metafields.custom.type.value}}',
+                brand: '{{collections['shop'].products[i].metafields.custom.brand.value}}',
+                size: '{{collections['shop'].products[i].metafields.custom.size.value}}',
+                color: '{{collections['shop'].products[i].metafields.custom.color.value}}',
+                index: '{{i}}',
+                {% if collections['shop'].products[i].metafields.custom.rework.value == true %}
+                    className: 'rework',
+                {% elsif collections['shop'].products[i].metafields.custom.exclusive.value == true %}
+                    className: 'exclusive',
+                {% else %}
+                    className: 'common',
+                {% endif %}
+            };
+
+            types.push(newProduct.type);
+            brands.push(newProduct.brand);
+            sizes.push(newProduct.size);
+            colors.push(newProduct.color);
+
+            products.push(newProduct);
+        {% endfor %}
+
+        function getUniqueValues(array) {
+            const uniqueSet = new Set(array.filter(value => value.trim() !== ''));
+            return Array.from(uniqueSet);
+        }          
+
+        function filterProducts(products, filters) {
+            return products.filter(product => {
+
+                let collectionMatch = true
+                collectionMatch =
+                  filters.collection &&
+                  filters.collection.some(collection => product[collection] == "true");
+                if (filters.collection.length === 0) {
+                    collectionMatch = true;
+                }
+
+                let typeMatch = true
+                typeMatch = filters.type.includes(product.type);
+                if (filters.type.length === 0) {
+                    typeMatch = true;
+                }
+
+                let brandMatch = true
+                brandMatch = filters.brand.includes(product.brand);
+                if (filters.brand.length === 0) {
+                    brandMatch = true;
+                }
+
+                let sizeMatch = true
+                sizeMatch = filters.size.includes(product.size);
+                if (filters.size.length === 0) {
+                    sizeMatch = true;
+                }
+
+
+                let colorMatch = true
+                colorMatch = filters.color.includes(product.color);
+                if (filters.color.length === 0) {
+                    colorMatch = true;
+                }
+
+                let priceMatch = true;
+                if (filters.price.length > 0) {
+                    const [minPrice, maxPrice] = filters.price;
+                    const productPrice = parseFloat(product.price.replace('€', '').replace(',', '.'));
+
+                    priceMatch = productPrice >= minPrice && productPrice <= maxPrice;
+                }
+          
+                return collectionMatch && typeMatch && brandMatch && colorMatch && sizeMatch && priceMatch;
+            });
+        }
+
+        function updateProducts(filteredProducts) {
+            allProductsContainer.innerHTML = '';
+            for (const product of filteredProducts) {
+                appendCard(allProductsContainer, product.index, products);
+            }
+        }
+
+        function handleSliderChange(filteredProducts, index) {
+            validateRange();
+            updateProducts(filterProducts(filteredProducts, selectedFilters));
+        }
+
+        let availableFilters = {
+            collection: ['exclusive', 'rework'],
+            type: getUniqueValues(types),
+            brand: getUniqueValues(brands),
+            size: getUniqueValues(sizes),
+            color: getUniqueValues(colors),
+        };
+
+        let selectedFilters = {
+            collection: [],
+            type: [],
+            brand: [],
+            size: [],
+            price: [],
+            color: [],
+        };
+
+        const clear = document.querySelector('#clear');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let filteredProducts = [];
+            for (let i = 0; i < n; i++) {
+                filteredProducts.push(getProduct(products, i));
+            }
+
+            minPriceInput.addEventListener('change', function() {
+                handleSliderChange(filteredProducts, 0);
+            });
+            
+            maxPriceInput.addEventListener('change', function() {
+                handleSliderChange(filteredProducts, 1);
+            });
+
+            
+            
+            maxPriceInput.setAttribute("max", maxPrice)
+            maxPriceInput.setAttribute("min", minPrice)
+            minPriceInput.setAttribute("max", maxPrice)
+            minPriceInput.setAttribute("min", minPrice)
+            maxPriceInput.setAttribute("step", (maxPrice-minPrice) / 100)
+            minPriceInput.setAttribute("step", (maxPrice-minPrice) / 100)
+            maxPriceInput.setAttribute("value", maxPrice);
+            minPriceInput.setAttribute("value", minPrice);
+            maxPriceInput.value = maxPrice;
+            minPriceInput.value = minPrice;
+            validateRange();
+    
+            updateProducts(filterProducts(filteredProducts, selectedFilters));
+            filterCategories.forEach(ul => {
+                let propertyName = ul.classList[0];
+                let propertyValues = availableFilters[propertyName];
+
+                if (propertyName !== 'price') {
+                    propertyValues.forEach(value => {
+                        let label = document.createElement('label');
+                        let checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.className = 'filter-checkbox';
+                        let span = document.createElement('span');
+                        span.className = 'checkmark';
+                        label.textContent = value;
+                        if (selectedFilters[propertyName].includes(value)) {
+                            checkbox.checked = true;
+                        }
+                        ul.appendChild(label);
+                        label.appendChild(checkbox);
+                        label.appendChild(span);
+        
+        
+                        label.addEventListener('click', function() {
+                            const checkbox = this.querySelector('input');
+                            if (checkbox.checked) {
+                                selectedFilters[propertyName].push(value);
+                            }
+                            else {
+                                selectedFilters[propertyName] = selectedFilters[propertyName].filter(item => item !== value);
+                            }
+        
+                            if (areAllArraysEmpty(selectedFilters)) {
+                                clear.classList.add('hidden');
+                            }
+                            else {
+                                clear.classList.remove('hidden');
+                            }
+        
+                            updateProducts(filterProducts(filteredProducts, selectedFilters));
+                        });
+                      });
+                }
+            });
+    
+            const checkboxes = document.querySelectorAll('.filter-checkbox');
+            clear.addEventListener('click', function() {
+                selectedFilters = {
+                    type: [],
+                    brand: [],
+                    size: [],
+                    price: [],
+                    color: [],
+                };
+                clear.classList.add('hidden');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                })
+                updateProducts(filterProducts(filteredProducts, selectedFilters));
+            });
+
+            
+        });
+
+
+        function areAllArraysEmpty(obj) {
+            return Object.values(obj).every(arr => arr.length === 0);
+          }
+    </script>
+
+    <script>
+        let minValue = document.getElementById("min-value");
+        let maxValue = document.getElementById("max-value");
+        
+        const rangeFill = document.querySelector(".range-fill");
+        
+        // Function to validate range and update the fill color on slider
+        function validateRange() {
+            let minPrice = +inputElements[0].getAttribute("min");
+            let maxPrice = +inputElements[1].getAttribute("max");
+          let minPriceSelected = parseInt(inputElements[0].value);
+          
+          let maxPriceSelected = parseInt(inputElements[1].value);
+        
+          if (minPriceSelected > maxPriceSelected) {
+            let tempValue = maxPriceSelected;
+            maxPriceSelected = minPriceSelected;
+            minPriceSelected = tempValue;
+          }
+        
+          const minPercentage = ((minPriceSelected - minPrice) / maxPrice) * 100;
+          const maxPercentage = ((maxPriceSelected - minPrice) / maxPrice) * 100;
+        
+          rangeFill.style.left = minPercentage+2 + "%";
+          rangeFill.style.width = maxPercentage+2 - minPercentage + "%";
+        
+          maxValue.innerHTML = maxPriceSelected+"€";
+          
+          minValue.innerHTML = minPriceSelected+"€";
+          selectedFilters.price = [minPriceSelected, maxPriceSelected];
+
+        }
+        
+        const inputElements = document.querySelectorAll("input[type=range]");
+        
+        // Add an event listener to each input element
+        inputElements.forEach((element) => {
+          element.addEventListener("input", validateRange);
+        });
+        
+        // Initial call to validateRange
+        validateRange();
+    </script>
+
+    <script>
+        const filtersButton = document.querySelector('.open-filters');
+        const filtersMenu = document.querySelector('.filters-box');
+        const filtersOverlay = document.querySelector('#shop-overlay');
+        const filtersClose = document.querySelector('#filters-close');
+
+        filtersButton.addEventListener("click", () => {
+            filtersMenu.classList.toggle('closed');
+            filtersOverlay.classList.toggle('closed');
+        });
+
+        filtersOverlay.addEventListener("click", () => {
+            if (!filtersMenu.classList.contains('closed')) {
+                filtersMenu.classList.add('closed');
+                filtersOverlay.classList.add('closed');
+            }
+        });
+
+        filtersClose.addEventListener("click", () => {
+            if (!filtersMenu.classList.contains('closed')) {
+                filtersMenu.classList.add('closed');
+                filtersOverlay.classList.add('closed');
+            }
+        });
+
+    </script>
+</div>

@@ -1,0 +1,78 @@
+<style>
+    #cookies-banner {
+      display: block;
+      justify-content: center;
+      align-items: center;
+      padding: 1em;
+      position: fixed;
+      left: -1000px;
+      transition: left 0.5s;
+      bottom: 10px;
+      width: 20%;
+      background: {{ settings.main }};
+      z-index: 100;
+    }
+
+    #cookies-banner.visible {
+        left: 10px;
+    }
+
+    #cookies-banner div {
+        text-align: center;
+        font-size: 14px;
+        font-family: 'Manrope';
+        line-height: 150%;
+        color: {{ settings.light }};
+    }
+
+    #cookies-banner div a {
+        text-decoration: underline;
+    }
+
+    #cookies-banner>a {
+        display: block;
+        padding: 10px 0;
+        width: 40%;
+        margin: auto;
+        margin-top: 1em;
+        background: #fff;
+        color: {{ settings.main }};
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width: 600px) {
+        #cookies-banner {
+            box-sizing: border-box;
+            width: calc(100% - 20px);
+        }
+    }
+
+  </style>
+  
+  <div id="cookies-banner" class="visible">
+    <div>We use cookies to optimize your shopping experience. <a href="https://cdn.shopify.com/s/files/1/0635/9783/8522/files/HTTP_cookie_-_Wikipedia.pdf?v=1700086655" target="_blank">Learn more</a></div>
+
+    <a onclick="acceptCookies()">Accept</a>
+  </div>
+
+  <script>
+
+    if (localStorage.getItem("cookiesAccepted") === "true") {
+        hideCookieBanner();
+    }
+
+    function acceptCookies() {
+        hideCookieBanner();
+        localStorage.setItem("cookiesAccepted", "true");
+    }
+
+    function hideCookieBanner() {
+        var banner = document.getElementById("cookies-banner");
+        banner.classList.remove("visible");
+    }
+</script>
+  

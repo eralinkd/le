@@ -1,0 +1,132 @@
+.gallery-wrapper {
+    margin-top: 30px;
+}
+
+.gallery-wrapper > h2{
+    text-align: center;
+    font-family: "Manrope";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 46px;
+    color: {{ settings.main }};
+}
+
+.gallery-wrapper > div {
+    height: 50px;
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    margin: auto;
+    margin-bottom: 15px;
+}
+
+.gallery-wrapper > div > p > img {
+    width: 26px;
+}
+
+.gallery-wrapper > div > p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Manrope";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+    color: {{ settings.main }};
+}
+
+.gallery-wrapper > div >p:nth-of-type(2) {
+    justify-content: center;
+    font-family: "Manrope";
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.gallery-wrapper > div > p {
+    font-family: "Manrope";
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 500;
+    color: {{ settings.main }};
+}
+
+.gallery-wrapper > .gallery {
+    width: 87%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: auto;
+}
+
+.gallery-wrapper > .gallery > img {
+    display: block;
+    width: 100%;
+    position: relative;
+    transition: 0.3s;
+}
+
+.gallery-wrapper > a {
+    display: flex;
+    width: 200px;
+    height: 65px;
+    margin: auto;
+    margin-top: 25px;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Manrope', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 700;
+    transition: all ease-out 0.6s;
+    cursor: pointer;
+    color: {{ settings.light }};
+    background-color: {{ settings.main }};
+}
+
+.gallery-wrapper > a:hover {
+    background-color: {{ settings.secondary }};
+    color: {{ settings.main }};
+}
+
+.gallery-wrapper > a:active {
+    color: {{ settings.light }};
+    background-color: {{ settings.dark }};
+}
+
+
+
+
+
+@media only screen and (max-width: 600px) {
+    .gallery-wrapper > .gallery {
+        width: 80%;
+        grid-template-columns: repeat(2,1fr);
+        gap: 10px;
+    }
+
+    .gallery-wrapper > div {
+        height: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 40px;
+        margin: 0 auto 40px auto;
+    }
+
+    .gallery-wrapper>div>p {
+        font-size: 16px;
+    }
+
+    .gallery-wrapper>div>p>img {
+        width: 20px;
+    }
+
+    .gallery-wrapper>a {
+        width: 150px;
+        height: 50px;
+        font-size: 17px;
+    }
+}

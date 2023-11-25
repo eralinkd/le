@@ -1,0 +1,68 @@
+{
+  "header": {
+    "menu": {
+      "latest-drop": "Letzter Tropfen",
+      "shop": "Shop",
+      "exclusive": "Exklusiv",
+      "rework": "Nacharbeit",
+      "more": "Mehr"
+    }
+  },
+  "banner": {
+    "button": {
+      "text": "Jetzt einkaufen"
+    }
+  },
+  "latest-drop": {
+    "drop": {
+      "title": "LETZTER TROPFEN",
+      "view_all": "ALLE ANSICHTEN"
+    },
+    "exclusive": {
+      "title": "EXKLUSIV"
+    },
+    "notification": {
+      "text": "Neuer Artikel in den Warenkorb gelegt"
+    }
+  },
+  "rework": {
+    "content": {
+      "title": "Überarbeitung",
+      "subtitle": "Vintage-Weste",
+      "text": "Meisterhaft und schmackhaft! Ich habe Ihre Weste nicht nur abgeändert, sondern ihr einen völlig neuen Stil verliehen. Jetzt sieht sie aus wie ein völlig neues Accessoire, das jeden beeindrucken wird. Das neue luxuriöse Design und die Vielseitigkeit der Nähte machen diese Weste zu einem der aktuellsten Luxusartikel."
+    },
+    "button": {
+      "text": "MEHR SEHEN"
+    }
+  },
+  "eco-care": {
+    "content": {
+      "title": "Öko-Pflege",
+      "subtitle": "Verpackung unserer Waren",
+      "text_html": "Wichtig ist, dass alle unsere Produkte in umweltfreundlichen Materialien verpackt sind, die unsere Auswirkungen auf die Umwelt minimieren. Wir verwenden recycelte und sekundäre Verpackungsmaterialien wie Papier oder Pappe.<br><br>Wir glauben, dass jeder zur Erhaltung unseres Planeten beitragen kann, auch durch den Kauf von Retro-Waren. Und deshalb sind unsere umweltfreundlichen Verpackungen ein unangemessener Teil unserer Mission, die Umwelt zu schützen und einen stählernen Lebensstil zu fördern."
+    }
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle1": "BIETEN SIE EINEN INTERNATIONALEN VERSAND AN?",
+    "answer1": "Der Zeitpunkt Ihrer Bestellung hängt von Ihrem Standort und der von Ihnen gewählten Option während des Checkouts ab. In der Regel dauert es im Inland etwa 3-7 Busse pro Tag, bis Sie in [Ihrem Land] ankommen. Internationale Bestellungen dauern in der Regel 10-20 Busse pro Tag, aber dies kann je nach Zollverfahren und Standort variieren.",
+    "subtitle2": "WIE SIEHT IHRE RÜCKGABEPOLITIK AUS?",
+    "answer2": "Wir bieten Ihnen eine umfassende Rückerstattungspolitik, um Ihre Zufriedenheit zu gewährleisten. Wenn Sie mit Ihrem Kauf nicht vollständig zufrieden sind, können Sie die Ware innerhalb von 30 Tagen nach Erhalt Ihrer Bestellung für eine vollständige Rückgabe oder einen Umtausch zurückgeben. Bitte beachten Sie unsere Richtlinien für die Rücknahme und den Umtausch von Waren auf unserer Website, um Einzelheiten über das Rücknahmeverfahren und die Berechtigung zur Rücknahme zu erfahren.",
+    "subtitle3": "WIE LANGE DAUERT ES, BIS MEINE BESTELLUNG EINTRIFFT?",
+    "answer3": "Yés, wé offér intérnational shipping to many countriés around thé world. During chéckout, you will bé ablé to séé availablé shipping options for your spécific location. Pléasé noté that intérnational shipping costs and délivéry timés may vary dépénding on your country and thé shipping méthod séléctéd. In addition, the consignéé may chargé customs dutiés, taxés and féés."
+  },
+
+  "exclusive_page": {
+    "banner": {
+      "header": "EXKLUSIV",
+      "text": "Willkommen in unserer Kategorie Exklusiv, in der Seltenheit, Wert und Qualität zu einer außergewöhnlichen Kollektion verschmelzen. Jedes sorgfältig zusammengestellte Stück verkörpert Exklusivität und bietet eine einzigartige Mischung aus Seltenheit und sorgfältiger Handwerkskunst. Entdecken Sie diese Auswahl als eine Investition in zeitlosen Stil, bei der jedes Stück die Essenz der Exklusivität widerspiegelt."
+    }
+  },
+
+  "rework_page": {
+    "banner": {
+      "header": "NACHARBEIT",
+      "text": "Willkommen in unserer Nacharbeit-Kategorie, wo Einzigartigkeit auf Nachhaltigkeit trifft. Jedes Teil dieser Kollektion ist mit Sorgfalt handgefertigt, individuell gestaltet und kann recycelt werden. Entdecken Sie einzigartige Stücke, die Kreativität mit bewusster Mode verbinden und die Schönheit eines neu gestalteten Stils zelebrieren."
+    }
+  }
+}

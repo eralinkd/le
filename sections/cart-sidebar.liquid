@@ -1,0 +1,112 @@
+<div class="overlay" id="cart-overlay"></div>
+
+<div class="cart-sidebar">
+    <div class="head">
+        <div class="left-section">
+            {% comment %} <img src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/latest-drop-left-active.svg?v=1698924671">
+            <p>To shopping page</p> {% endcomment %}
+        </div>
+        <p>CART</p>
+        <p class="close">
+            <img onclick=closeButtonClick() src="https://cdn.shopify.com/s/files/1/0668/3974/0631/files/cart-close.svg">
+        </p>
+    </div>
+
+    <div class="products">
+        {% if cart.empty? %}
+            <p class="empty">Your cart is still empty</p>
+        {% endif %}
+
+        {% for item in cart.items %}
+            <div>
+                <img class="image" src="{{ item.product.featured_image | image_url }}">
+                <div class="info">
+                    <p>{{ item.product.title }}</p>
+                    <p>XL</p>
+                    <div class="price">
+                        <p>{{ item.price | money }}</p>
+                        <a class="remove" onclick=removeButtonClick(event) href="#" data-url="/cart/change?line={{ forloop.index }}&quantity=0" data-rel="{{ item.id }}">Rémové</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {% if cart.empty? == false %}
+        <div class="total">
+            <p class="text">Subtotal:</p>
+            <p class="price">{{ cart.total_price | money }}</p>
+        </div>
+
+        <p class="tax">Tax includéd, <a href="#" class="shipping-popup-open">shipping éxludéd</a>.</p>
+
+        <a class="checkout" id="checkout" href="/checkout">Go to Chéckout</a>
+    {% endif %}
+
+    {% if cart.empty? %}
+        <a class="checkout" href="{{linklists.header-menu.links[1].url}}">Go Shopping</a>
+    {% endif %}
+
+    <script>
+        const cartButton = document.querySelector('#cart-header');
+        const overlay = document.querySelector('#cart-overlay');
+        const cartSidebar = document.querySelector('.cart-sidebar');
+        const checkoutButton = document.querySelector('#checkout');
+        const closeButton = document.querySelector('.close');
+
+        async function updateCart() {
+            const mark = document.querySelector('#cart-mark');
+            if (mark.classList.contains('empty')) {
+                mark.classList.remove('empty')
+            }
+            const res = await fetch("/?section_id=cart-sidebar")
+            const text = await res.text();
+            
+            const html = document.createElement('div');
+            html.innerHTML = text;
+            const newCart = html.querySelector('.cart-sidebar').innerHTML;
+
+            document.querySelector('.cart-sidebar').innerHTML = newCart
+        }
+
+        cartButton.onclick = function() {
+            overlay.style.opacity = 1
+            overlay.style.zIndex = 5
+            cartSidebar.style.right = "0"
+        }
+
+        overlay.onclick = function() {
+            overlay.style.opacity = 0
+            overlay.style.zIndex = -1
+            cartSidebar.style.right = "-100vw"
+        }
+
+        function closeButtonClick() {
+            overlay.style.opacity = 0
+            overlay.style.zIndex = -1
+            cartSidebar.style.right = "-100vw"
+        }
+
+        async function removeButtonClick(event) {
+            event.preventDefault();
+        
+            const url = event.target.getAttribute('data-url');
+    
+            await fetch(url, {
+                method: 'GET',
+            })
+            .then(response => {
+                updateCart();
+            })
+
+            
+        }
+
+        if (checkoutButton) {
+            checkoutButton.onclick = function() {
+                window.location.href = '/checkout?force_checkout=redesign';
+            }
+        }
+
+    </script>
+</div>

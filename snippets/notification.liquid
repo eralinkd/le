@@ -1,0 +1,31 @@
+<div id="notification">
+    <img>
+    <div>
+        <p>{{ 'latest-drop.notification.text' | t }}</p>
+        <p class="name"></p>
+        <p class="price"></p>
+    </div>
+
+    <script>
+        const notification = document.getElementById('notification');
+
+        function displayNotification(product) {  
+            headerDiv.style.top = "20px";   
+            if (displayNotification.timerId) {
+                clearTimeout(displayNotification.timerId);
+            }
+
+              displayNotification.timerId = setTimeout(function() {
+                notification.style.right = '-700px';
+              }, 2000);
+
+            notification.style.right = 0;
+            const notificationImg = notification.querySelector('img');
+            const notificationName = notification.querySelector('.name');
+            const notificationPrice = notification.querySelector('.price');
+            notificationImg.src = product.img;
+            notificationName.textContent = product.title;
+            notificationPrice.textContent = product.price;        
+        }
+    </script>
+</div>

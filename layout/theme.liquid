@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arbutus&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     {{ content_for_header }}
+
+
+
     {{ 'global.css' | asset_url | stylesheet_tag}}
+    {{ 'announcement.css' | asset_url | stylesheet_tag}}
     {{ 'header.css' | asset_url | stylesheet_tag}}
     {{ 'banner.css' | asset_url | stylesheet_tag}}
+    {{ 'latest-drop.css' | asset_url | stylesheet_tag}}
+    {{ 'rework.css' | asset_url | stylesheet_tag}}
+    {{ 'eco-care.css' | asset_url | stylesheet_tag}}
+    {{ 'gallery.css' | asset_url | stylesheet_tag}}
+    {{ 'faq.css' | asset_url | stylesheet_tag}}
+    {{ 'footer.css' | asset_url | stylesheet_tag}}
+    {{ 'card.css' | asset_url | stylesheet_tag}}
+    
+    {{ 'cart-sidebar.css' | asset_url | stylesheet_tag}}
+    {{ 'notification.css' | asset_url | stylesheet_tag}}
+    {{ 'burder-menu.css' | asset_url | stylesheet_tag}}
+
+    {{ 'page-shop.css' | asset_url | stylesheet_tag}}
+    {{ 'page-product.css' | asset_url | stylesheet_tag}}
+    {{ 'page-exclusive.css' | asset_url | stylesheet_tag}}
+    {{ 'page-rework.css' | asset_url | stylesheet_tag}}
+    {{ 'page-latest-drop.css' | asset_url | stylesheet_tag}}
+    {{ 'page-about.css' | asset_url | stylesheet_tag}}
   </head>
 
   <body>
+    {% section "announcement" %}
     {% include "header" %}
-    {% include "banner" %}
+    {% include "burger-menu" %}
+    {% section "cart-sidebar" %}
     {{ content_for_layout }}
+    {% section "footer"%}
+    {% render 'cookie-banner' %}
+    {% include "notification" %}
     
+
+    <script src={{'header.js' | asset_url | javascript_include_tag}}></script>
+    <script src={{'announcement.js' | asset_url | javascript_include_tag}}></script>
+    <script src={{'global.js' | asset_url | javascript_include_tag}}></script>
   </body>
  </html>
