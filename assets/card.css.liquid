@@ -1,6 +1,7 @@
 .card-wrapper {
     display: block;
     flex: 0 0 20%;
+    height: 400px;
 }
 
 .card-wrapper .card {
@@ -12,8 +13,8 @@
 .card-wrapper .card > .reveal {
     position: relative;
     width: 80%;
-    margin: auto;
-    height: 33vh;
+    margin: 0 auto;
+    height: 245px;
     display: flex; 
     justify-content: center;
     overflow: hidden;
@@ -155,7 +156,7 @@
 
 .card-wrapper .card > .name {
     margin-top: -9px;
-    min-height: 42px;
+    min-height: 63px;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -284,9 +285,9 @@
         flex: 0 0 50%;
     }
 
-    .card-wrapper .card>.reveal {
+    /* .card-wrapper .card>.reveal {
         height: 20vh;
-    }
+    } */
 
     .card-wrapper .card .under-product>.ticket {
         top: -52%;
@@ -336,3 +337,16 @@
         font-size: 14px;
     }
   }
+
+  @media screen and (min-width: 1900px) {
+    .card-wrapper {
+        flex: 0 0 12.5%;
+    }
+
+    .card-wrapper .card > .reveal {
+        height: 345px;
+    }
+    
+
+    
+}
